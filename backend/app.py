@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 import re
@@ -11,6 +12,48 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 with open(os.path.join(DATA_DIR, "SEAS_courses_clean.json")) as f:
     _RAW_COURSES = json.load(f)
+
+def _parse_req_codes(text):
+    """Extract course codes like COMPSCI 50, ENG-SCI 51, MATH 21A from free text."""
+    return list(dict.fromkeys(re.findall(r'[A-Z][A-Z\-]+\s+\d+[A-Z]?', text)))
+
+
+# Harvard catalog prefix → SEAS catalog prefix
+_PREFIX_MAP = {
+    "compsci": "cs",
+    "apmth": "am",
+    "engsci": "es",   # ENG-SCI after hyphen removal
+    "bme": "be",
+    "biophys": "be",
+}
+
+
+def _norm_num(s):
+    """Normalize a course number for matching across catalog systems."""
+    s = s.lower().replace(" ", "").replace("-", "")
+    for old, new in _PREFIX_MAP.items():
+        if s.startswith(old):
+            return new + s[len(old):]
+    return s
+
+
+_REQUIREMENTS_BY_CONC = {}
+_csv_path = os.path.join(DATA_DIR, "harvard_concentration_requirements.csv")
+if os.path.exists(_csv_path):
+    with open(_csv_path, newline="") as _f:
+        for _row in csv.DictReader(_f):
+            _name = _row["concentration"]
+            _track = _row["track"]
+            if any(kw in _track for kw in ("Basic", "Standard", "A.B.")):
+                if _name not in _REQUIREMENTS_BY_CONC:
+                    _REQUIREMENTS_BY_CONC[_name] = {
+                        "total_courses": _row["total_courses"],
+                        "required_courses_text": _row["required_courses"],
+                        "tutorials": _row["tutorials"],
+                        "thesis": _row["thesis"],
+                        "required_codes": _parse_req_codes(_row["required_courses"]),
+                    }
+
 
 with open(os.path.join(DATA_DIR, "harvard_concentrations_matched_seas_only.json")) as f:
     _RAW_CONCENTRATIONS = json.load(f)
@@ -99,6 +142,7 @@ def _build_course(raw):
 
 ALL_COURSES = [_build_course(c) for c in _RAW_COURSES]
 _COURSE_BY_ID = {c["id"]: c for c in ALL_COURSES}
+_COURSE_BY_NORM = {_norm_num(c["course_number"]): c for c in ALL_COURSES}
 
 _ALL_TERMS = sorted(
     {t for c in ALL_COURSES for t in c["terms"]},
@@ -165,6 +209,30 @@ def get_concentrations():
         }
         for c in ALL_CONCENTRATIONS
     ])
+
+
+@app.route("/api/requirements/<path:name>", methods=["GET"])
+def get_requirements(name):
+    req = next(
+        (v for k, v in _REQUIREMENTS_BY_CONC.items() if k.lower() == name.lower()), None
+    )
+    if req is None:
+        return jsonify({"error": "Requirements not found"}), 404
+
+    matched = []
+    for code in req["required_codes"]:
+        norm = _norm_num(code)
+        course = _COURSE_BY_NORM.get(norm)
+        matched.append({"code": code, "course": course})
+
+    return jsonify({
+        "total_courses": req["total_courses"],
+        "required_courses_text": req["required_courses_text"],
+        "tutorials": req["tutorials"],
+        "thesis": req["thesis"],
+        "required_codes": req["required_codes"],
+        "matched": matched,
+    })
 
 
 @app.route("/api/concentrations/<path:name>", methods=["GET"])

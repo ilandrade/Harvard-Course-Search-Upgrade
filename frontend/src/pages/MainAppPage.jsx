@@ -421,7 +421,9 @@ function CoursePill({ course, semester, onRemove }) {
 // ─── Requirements Tab ──────────────────────────────────────────────────────────
 
 function RequirementsTab({ allConcs }) {
-  const { concentrationDetails, addConcentrationDetail, semesterPlan } = useApp();
+  const { semesterPlan } = useApp();
+  const [reqData, setReqData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const addedIds = useMemo(
     () => new Set(Object.values(semesterPlan).flat().map((c) => c.id)),
@@ -429,33 +431,15 @@ function RequirementsTab({ allConcs }) {
   );
 
   useEffect(() => {
+    let pending = allConcs.length;
+    if (pending === 0) { setLoading(false); return; }
     allConcs.forEach((conc) => {
-      if (!concentrationDetails[conc.name]) {
-        fetch(`/api/concentrations/${encodeURIComponent(conc.name)}`)
-          .then((r) => r.json())
-          .then((data) => addConcentrationDetail(conc.name, data));
-      }
+      fetch(`/api/requirements/${encodeURIComponent(conc.name)}`)
+        .then((r) => r.json())
+        .then((data) => setReqData((prev) => ({ ...prev, [conc.name]: data })))
+        .finally(() => { pending--; if (pending === 0) setLoading(false); });
     });
   }, [allConcs]);
-
-  const loading = allConcs.some((c) => !concentrationDetails[c.name]);
-
-  const concData = useMemo(() => {
-    return allConcs.map((conc) => {
-      const detail = concentrationDetails[conc.name];
-      if (!detail) return null;
-      const seen = new Set();
-      const uniq = detail.seas_required_course_matches
-        .flatMap((m) => m.matches.map((c) => ({ id: slugify(c.catalog_number), name: c.title, code: c.catalog_number })))
-        .filter((c) => { if (seen.has(c.id)) return false; seen.add(c.id); return true; });
-      const done = uniq.filter((c) => addedIds.has(c.id)).length;
-      return { name: conc.name, uniq, done, total: uniq.length, pct: uniq.length ? Math.round(done / uniq.length * 100) : 0 };
-    }).filter(Boolean);
-  }, [concentrationDetails, allConcs, addedIds]);
-
-  const totalReq = concData.reduce((s, c) => s + c.total, 0);
-  const doneReq = concData.reduce((s, c) => s + c.done, 0);
-  const overallPct = totalReq ? Math.round(doneReq / totalReq * 100) : 0;
 
   if (loading) {
     return (
@@ -465,48 +449,81 @@ function RequirementsTab({ allConcs }) {
     );
   }
 
+  const concSummaries = allConcs.map((conc) => {
+    const data = reqData[conc.name];
+    if (!data || data.error) return null;
+    const seasItems = data.matched.filter((m) => m.course);
+    const done = seasItems.filter((m) => addedIds.has(m.course.id)).length;
+    const pct = seasItems.length ? Math.round((done / seasItems.length) * 100) : 0;
+    return { name: conc.name, data, seasItems, done, pct };
+  }).filter(Boolean);
+
+  const totalSeas = concSummaries.reduce((s, c) => s + c.seasItems.length, 0);
+  const totalDone = concSummaries.reduce((s, c) => s + c.done, 0);
+  const overallPct = totalSeas ? Math.round((totalDone / totalSeas) * 100) : 0;
+
   return (
     <div className="px-5 py-4">
-      {concData.map((data) => (
-        <div key={data.name} className="mb-7">
-          <div className="flex justify-between items-baseline mb-2">
-            <h3 className="text-base font-medium text-gray-900">{data.name}</h3>
-            <span className="text-xs text-gray-400">{data.done}/{data.total} required</span>
+      {concSummaries.map(({ name, data, seasItems, done, pct }) => (
+        <div key={name} className="mb-8">
+          <div className="flex justify-between items-baseline mb-1">
+            <h3 className="text-base font-medium text-gray-900">{name}</h3>
+            <span className="text-xs text-gray-400">{data.total_courses}</span>
           </div>
+
           <div className="h-1 bg-gray-100 rounded-full mb-3 overflow-hidden">
             <div
               className="h-full bg-crimson-600 rounded-full transition-all duration-500"
-              style={{ width: `${data.pct}%` }}
+              style={{ width: `${pct}%` }}
             />
           </div>
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2 pb-1.5 border-b border-gray-100">
+          <p className="text-xs text-gray-400 mb-3">
+            {done} of {seasItems.length} SEAS-listed requirements planned
+          </p>
+
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 pb-1.5 border-b border-gray-100">
             Required courses
           </p>
-          <div className="flex flex-col gap-2">
-            {data.uniq.map((c) => {
-              const isDone = addedIds.has(c.id);
+          <div className="flex flex-col gap-2 mb-3">
+            {data.matched.map((m, i) => {
+              const isDone = m.course && addedIds.has(m.course.id);
               return (
-                <div key={c.id} className="flex items-center gap-2.5">
+                <div key={i} className="flex items-center gap-2.5">
                   <div
-                    className={`w-[18px] h-[18px] rounded-full shrink-0 border flex items-center justify-center text-[11px] ${
-                      isDone ? "bg-crimson-600 border-crimson-600 text-white" : "border-gray-300"
+                    className={`w-[18px] h-[18px] rounded-full shrink-0 border flex items-center justify-center text-[11px] transition-colors ${
+                      isDone
+                        ? "bg-crimson-600 border-crimson-600 text-white"
+                        : m.course
+                        ? "border-gray-300"
+                        : "border-dashed border-gray-200"
                     }`}
                   >
                     {isDone && "✓"}
                   </div>
-                  <span className="text-sm text-gray-800 flex-1">{c.name}</span>
-                  <span className="text-xs text-gray-400 font-mono">{c.code}</span>
+                  <span className={`text-sm flex-1 ${m.course ? "text-gray-800" : "text-gray-400"}`}>
+                    {m.course ? m.course.title : m.code}
+                  </span>
+                  <span className="text-xs text-gray-400 font-mono shrink-0">{m.code}</span>
+                  {!m.course && (
+                    <span className="text-[10px] text-gray-300 shrink-0">not in SEAS</span>
+                  )}
                 </div>
               );
             })}
           </div>
+
+          {data.tutorials && data.tutorials !== "None required." && (
+            <div className="bg-gray-50 rounded-lg px-3 py-2 text-xs text-gray-500">
+              <span className="font-medium text-gray-700">Tutorials: </span>{data.tutorials}
+            </div>
+          )}
         </div>
       ))}
 
-      {concData.length > 1 && (
+      {concSummaries.length > 1 && (
         <div className="border-t border-gray-100 pt-4">
           <div className="flex justify-between mb-1.5">
-            <span className="text-sm font-medium text-gray-500">Overall progress</span>
+            <span className="text-sm font-medium text-gray-500">Overall SEAS progress</span>
             <span className="text-sm font-medium text-gray-700">{overallPct}%</span>
           </div>
           <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
