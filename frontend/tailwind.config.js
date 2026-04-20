@@ -4,6 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        navy: {
+          50:  "#eef2f9",
+          100: "#d5dfef",
+          200: "#aabfdf",
+          300: "#7a9fd0",
+          400: "#4d7fc0",
+          500: "#2a5298",
+          600: "#1D3A6B",
+          700: "#162e56",
+          800: "#0f2040",
+          900: "#080f1f",
+        },
         crimson: {
           50:  "#fdf2f2",
           100: "#fde0e0",

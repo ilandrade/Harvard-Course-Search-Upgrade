@@ -1,7 +1,7 @@
 import React from "react";
 import { X } from "lucide-react";
 
-const LEVELS = ["Undergraduate", "Graduate"];
+const LEVELS = ["Introductory", "100-level", "200-level", "300+-level"];
 
 export default function FilterPanel({ departments, terms, filters, onChange, onClear }) {
   function set(key, value) {

@@ -1,68 +1,81 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useMemo } from "react";
 
 const AppContext = createContext(null);
 
-export function AppProvider({ children }) {
-  const [savedCourses, setSavedCourses] = useState([]);
-  const [planner, setPlanner] = useState({
-    "Fall 2025": [],
-    "Spring 2026": [],
-    "Fall 2026": [],
-  });
+export const SEMESTERS = [
+  "Fall Y1", "Spring Y1",
+  "Fall Y2", "Spring Y2",
+  "Fall Y3", "Spring Y3",
+  "Fall Y4", "Spring Y4",
+];
 
-  const toggleSaved = useCallback((course) => {
-    setSavedCourses((prev) =>
-      prev.find((c) => c.id === course.id)
-        ? prev.filter((c) => c.id !== course.id)
-        : [...prev, course]
-    );
+function initPlan() {
+  return Object.fromEntries(SEMESTERS.map((s) => [s, []]));
+}
+
+export function AppProvider({ children }) {
+  const [primaryConcs, setPrimaryConcs] = useState([]);
+  const [secondary, setSecondary] = useState(null);
+  const [concentrationDetails, setConcentrationDetails] = useState({});
+  const [semesterPlan, setSemesterPlan] = useState(initPlan);
+
+  const addConcentrationDetail = useCallback((name, detail) => {
+    setConcentrationDetails((prev) => ({ ...prev, [name]: detail }));
   }, []);
 
-  const isSaved = useCallback(
-    (courseId) => savedCourses.some((c) => c.id === courseId),
-    [savedCourses]
+  const addedCourseIds = useMemo(
+    () => new Set(Object.values(semesterPlan).flat().map((c) => c.id)),
+    [semesterPlan]
   );
 
-  const addToPlanner = useCallback((course, semester) => {
-    setPlanner((prev) => {
-      const existing = prev[semester] || [];
-      if (existing.find((c) => c.id === course.id)) return prev;
-      return { ...prev, [semester]: [...existing, course] };
+  const addCourse = useCallback((course) => {
+    setSemesterPlan((prev) => {
+      const firstSem = SEMESTERS[0];
+      if ((prev[firstSem] || []).find((c) => c.id === course.id)) return prev;
+      return { ...prev, [firstSem]: [...(prev[firstSem] || []), course] };
     });
   }, []);
 
-  const removeFromPlanner = useCallback((courseId, semester) => {
-    setPlanner((prev) => ({
+  const removeCourse = useCallback((courseId, semester) => {
+    setSemesterPlan((prev) => ({
       ...prev,
       [semester]: (prev[semester] || []).filter((c) => c.id !== courseId),
     }));
   }, []);
 
-  const isInPlanner = useCallback(
-    (courseId) =>
-      Object.values(planner).some((sem) => sem.some((c) => c.id === courseId)),
-    [planner]
+  const moveCourse = useCallback((courseId, fromSem, toSem) => {
+    setSemesterPlan((prev) => {
+      const course = (prev[fromSem] || []).find((c) => c.id === courseId);
+      if (!course || fromSem === toSem) return prev;
+      return {
+        ...prev,
+        [fromSem]: prev[fromSem].filter((c) => c.id !== courseId),
+        [toSem]: [...(prev[toSem] || []), course],
+      };
+    });
+  }, []);
+
+  const isAdded = useCallback(
+    (courseId) => addedCourseIds.has(courseId),
+    [addedCourseIds]
   );
 
-  const getSemesterForCourse = useCallback(
-    (courseId) =>
-      Object.entries(planner).find(([, courses]) =>
-        courses.some((c) => c.id === courseId)
-      )?.[0] ?? null,
-    [planner]
-  );
+  const resetAll = useCallback(() => {
+    setPrimaryConcs([]);
+    setSecondary(null);
+    setConcentrationDetails({});
+    setSemesterPlan(initPlan());
+  }, []);
 
   return (
     <AppContext.Provider
       value={{
-        savedCourses,
-        planner,
-        toggleSaved,
-        isSaved,
-        addToPlanner,
-        removeFromPlanner,
-        isInPlanner,
-        getSemesterForCourse,
+        primaryConcs, setPrimaryConcs,
+        secondary, setSecondary,
+        concentrationDetails, addConcentrationDetail,
+        semesterPlan, addedCourseIds,
+        addCourse, removeCourse, moveCourse, isAdded,
+        resetAll,
       }}
     >
       {children}

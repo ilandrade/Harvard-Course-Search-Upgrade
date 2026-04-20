@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Bookmark, BookmarkCheck, CalendarDays,
-  Clock, MapPin, Users, Tag, GraduationCap, BookOpen, Loader2,
+  Tag, GraduationCap, BookOpen, Loader2,
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 
@@ -55,7 +55,6 @@ export default function CourseDetailPage() {
   const saved = isSaved(course.id);
   const inPlanner = isInPlanner(course.id);
   const plannerSem = getSemesterForCourse(course.id);
-  const fillPct = Math.round((course.enrollment / course.max_enrollment) * 100);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -93,36 +92,51 @@ export default function CourseDetailPage() {
           </button>
         </div>
 
-        <p className="text-gray-700 leading-relaxed mb-8">{course.description}</p>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-          <InfoTile icon={<Clock className="w-4 h-4" />} label="Schedule" value={course.schedule} />
-          <InfoTile icon={<MapPin className="w-4 h-4" />} label="Location" value={course.location} />
-          <InfoTile
-            icon={<Users className="w-4 h-4" />}
-            label="Enrollment"
-            value={
-              <div>
-                <span>{course.enrollment} / {course.max_enrollment}</span>
-                <div className="mt-1 h-1.5 bg-gray-100 rounded-full overflow-hidden w-full">
-                  <div
-                    className={`h-full rounded-full ${
-                      fillPct > 85 ? "bg-red-400" : fillPct > 60 ? "bg-yellow-400" : "bg-emerald-400"
-                    }`}
-                    style={{ width: `${fillPct}%` }}
-                  />
-                </div>
-              </div>
-            }
-          />
+        <div className="flex flex-wrap gap-2 mb-6">
           <InfoTile icon={<GraduationCap className="w-4 h-4" />} label="Level" value={course.level} />
           <InfoTile icon={<BookOpen className="w-4 h-4" />} label="Credits" value={`${course.credits} credits`} />
-          <InfoTile
-            icon={<CalendarDays className="w-4 h-4" />}
-            label="Term"
-            value={course.term}
-          />
         </div>
+
+        {course.aliases?.length > 0 && (
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-1">Also listed as</h3>
+            <div className="flex flex-wrap gap-2">
+              {course.aliases.map((a) => (
+                <span key={a} className="badge bg-gray-100 text-gray-700 font-mono text-xs">{a}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {course.semesters?.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
+              <CalendarDays className="w-4 h-4" /> Semester History
+            </h3>
+            <div className="overflow-x-auto rounded-lg border border-gray-100">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-50 text-left">
+                    <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Term</th>
+                    <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Faculty</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {course.semesters.map((s, i) => (
+                    <tr key={i} className="hover:bg-gray-50">
+                      <td className="px-4 py-2 text-gray-700 whitespace-nowrap">
+                        {s.term.charAt(0) + s.term.slice(1).toLowerCase()} {s.calendar_year}
+                      </td>
+                      <td className="px-4 py-2 text-gray-500">
+                        {s.faculty?.length > 0 ? s.faculty.join(", ") : <span className="text-gray-300">TBD</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
         {course.prerequisites?.length > 0 && (
           <div className="mb-6">

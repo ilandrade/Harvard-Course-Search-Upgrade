@@ -1,22 +1,24 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import SearchPage from "./pages/SearchPage";
-import CourseDetailPage from "./pages/CourseDetailPage";
-import PlannerPage from "./pages/PlannerPage";
+import ConcentrationSelectPage from "./pages/ConcentrationSelectPage";
+import MainAppPage from "./pages/MainAppPage";
+import { useApp } from "./context/AppContext";
 
 export default function App() {
+  const { primaryConcs } = useApp();
+  const hasConc = primaryConcs.length > 0;
+
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar />
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Navigate to="/search" replace />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/courses/:id" element={<CourseDetailPage />} />
-          <Route path="/planner" element={<PlannerPage />} />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/concentration" element={<ConcentrationSelectPage />} />
+      <Route
+        path="/app"
+        element={hasConc ? <MainAppPage /> : <Navigate to="/concentration" replace />}
+      />
+      <Route
+        path="*"
+        element={<Navigate to={hasConc ? "/app" : "/concentration"} replace />}
+      />
+    </Routes>
   );
 }
