@@ -13,7 +13,30 @@ with open(os.path.join(DATA_DIR, "SEAS_courses_clean.json")) as f:
     _RAW_COURSES = json.load(f)
 
 with open(os.path.join(DATA_DIR, "harvard_concentrations_matched_seas_only.json")) as f:
-    ALL_CONCENTRATIONS = json.load(f)
+    _RAW_CONCENTRATIONS = json.load(f)
+
+
+def _merge_concentration_entries(entries):
+    if len(entries) == 1:
+        return entries[0]
+    base = next((e for e in entries if e["type"] == "Primary Concentration"), entries[0])
+    seen_codes = set()
+    merged = []
+    for entry in entries:
+        for m in entry.get("seas_required_course_matches", []):
+            if m["required_code"] not in seen_codes:
+                seen_codes.add(m["required_code"])
+                merged.append(m)
+    return {**base, "seas_required_course_matches": merged, "seas_required_code_match_total": len(merged)}
+
+
+_conc_groups = {}
+for _c in _RAW_CONCENTRATIONS:
+    _conc_groups.setdefault(_c["name"], []).append(_c)
+ALL_CONCENTRATIONS = sorted(
+    [_merge_concentration_entries(v) for v in _conc_groups.values()],
+    key=lambda c: c["name"]
+)
 
 
 def _slugify(s):

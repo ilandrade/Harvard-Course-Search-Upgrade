@@ -83,6 +83,13 @@ function CoursesTab({ allConcs }) {
   const { concentrationDetails, addConcentrationDetail, addCourse, removeCourse, isAdded, semesterPlan } = useApp();
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [allSeasCourses, setAllSeasCourses] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/courses")
+      .then((r) => r.json())
+      .then((data) => setAllSeasCourses(data));
+  }, []);
 
   useEffect(() => {
     allConcs.forEach((conc) => {
@@ -94,18 +101,21 @@ function CoursesTab({ allConcs }) {
     });
   }, [allConcs]);
 
-  const allCourses = useMemo(() => {
-    const seen = new Set();
-    const courses = [];
+  const { requiredIds, allCourses } = useMemo(() => {
+    const reqIds = new Set();
+    const reqCourses = [];
+    const seenReq = new Set();
+
     allConcs.forEach((conc) => {
       const detail = concentrationDetails[conc.name];
       if (!detail) return;
       detail.seas_required_course_matches.forEach((match) => {
         match.matches.forEach((m) => {
           const id = slugify(m.catalog_number);
-          if (seen.has(id)) return;
-          seen.add(id);
-          courses.push({
+          reqIds.add(id);
+          if (seenReq.has(id)) return;
+          seenReq.add(id);
+          reqCourses.push({
             id,
             code: m.catalog_number,
             name: m.title,
@@ -117,14 +127,29 @@ function CoursesTab({ allConcs }) {
         });
       });
     });
-    return courses;
-  }, [concentrationDetails, allConcs]);
+
+    const elecCourses = allSeasCourses
+      .filter((c) => !reqIds.has(c.id))
+      .map((c) => ({
+        id: c.id,
+        code: c.course_number,
+        name: c.title,
+        type: "elec",
+        credits: c.credits || 4,
+        desc: (c.instructors || []).slice(0, 2).join(", ") || c.department || "SEAS",
+        conc: c.department,
+      }));
+
+    return { requiredIds: reqIds, allCourses: [...reqCourses, ...elecCourses] };
+  }, [concentrationDetails, allConcs, allSeasCourses]);
 
   const loading = allConcs.some((c) => !concentrationDetails[c.name]);
 
   const filtered = useMemo(() => {
     let result = allCourses;
-    if (activeFilter !== "All") result = result.filter((c) => c.conc === activeFilter);
+    if (activeFilter === "Required") result = result.filter((c) => c.type === "req");
+    else if (activeFilter === "Elective") result = result.filter((c) => c.type === "elec");
+    else if (activeFilter !== "All") result = result.filter((c) => c.conc === activeFilter);
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -137,7 +162,7 @@ function CoursesTab({ allConcs }) {
     return result;
   }, [allCourses, activeFilter, search]);
 
-  const filterOptions = ["All", ...allConcs.map((c) => c.name)];
+  const filterOptions = ["All", ...allConcs.map((c) => c.name), "Required", "Elective"];
 
   function handleToggle(course) {
     if (isAdded(course.id)) {
@@ -239,8 +264,12 @@ function CourseRow({ course, added, onToggle }) {
           </p>
           <p className="text-sm font-medium text-gray-900">{course.name}</p>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
-            <span className="text-xs px-2 py-0.5 rounded-full bg-crimson-50 text-crimson-700">
-              Required
+            <span className={`text-xs px-2 py-0.5 rounded-full ${
+              course.type === "req"
+                ? "bg-crimson-50 text-crimson-700"
+                : "bg-emerald-50 text-emerald-700"
+            }`}>
+              {course.type === "req" ? "Required" : "Elective"}
             </span>
             <span className="text-xs text-gray-400">
               {course.credits} credits · {course.desc}
