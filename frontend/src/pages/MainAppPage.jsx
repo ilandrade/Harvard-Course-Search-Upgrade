@@ -296,10 +296,33 @@ function CourseRow({ course, added, onToggle }) {
 
 function PlannerTab() {
   const { semesterPlan, removeCourse, moveCourse } = useApp();
+  const [dragOverSem, setDragOverSem] = useState(null);
 
   const totalCredits = Object.values(semesterPlan).flat().reduce((s, c) => s + (c.credits || 0), 0);
   const totalCourses = Object.values(semesterPlan).flat().length;
   const activeSems = Object.values(semesterPlan).filter((s) => s.length > 0).length;
+
+  function handleDragOver(e, sem) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setDragOverSem(sem);
+  }
+
+  function handleDragLeave(e) {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setDragOverSem(null);
+    }
+  }
+
+  function handleDrop(e, toSem) {
+    e.preventDefault();
+    setDragOverSem(null);
+    const courseId = e.dataTransfer.getData("courseId");
+    const fromSem = e.dataTransfer.getData("fromSem");
+    if (courseId && fromSem && fromSem !== toSem) {
+      moveCourse(courseId, fromSem, toSem);
+    }
+  }
 
   return (
     <div className="px-5 py-4">
@@ -320,9 +343,20 @@ function PlannerTab() {
         {SEMESTERS.map((sem) => {
           const courses = semesterPlan[sem] || [];
           const credits = courses.reduce((s, c) => s + (c.credits || 0), 0);
+          const isOver = dragOverSem === sem;
           return (
-            <div key={sem} className="border border-gray-200 rounded-xl overflow-hidden">
-              <div className="bg-gray-50 px-3.5 py-2.5 flex justify-between items-center">
+            <div
+              key={sem}
+              onDragOver={(e) => handleDragOver(e, sem)}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, sem)}
+              className={`border rounded-xl overflow-hidden transition-colors ${
+                isOver ? "border-crimson-400 bg-crimson-50" : "border-gray-200"
+              }`}
+            >
+              <div className={`px-3.5 py-2.5 flex justify-between items-center transition-colors ${
+                isOver ? "bg-crimson-50" : "bg-gray-50"
+              }`}>
                 <span className="text-sm font-medium text-gray-700">{sem}</span>
                 <span className="text-xs text-gray-400 bg-white border border-gray-200 px-2 py-0.5 rounded-full">
                   {credits} cr
@@ -330,18 +364,21 @@ function PlannerTab() {
               </div>
               <div className="px-3.5 py-2.5">
                 {courses.length === 0 ? (
-                  <div className="min-h-9 border border-dashed border-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-xs text-gray-300">No courses yet</span>
+                  <div className={`min-h-9 border border-dashed rounded-lg flex items-center justify-center transition-colors ${
+                    isOver ? "border-crimson-300" : "border-gray-200"
+                  }`}>
+                    <span className={`text-xs transition-colors ${isOver ? "text-crimson-400" : "text-gray-300"}`}>
+                      {isOver ? "Drop here" : "No courses yet"}
+                    </span>
                   </div>
                 ) : (
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 min-h-9">
                     {courses.map((c) => (
                       <CoursePill
                         key={c.id}
                         course={c}
                         semester={sem}
                         onRemove={() => removeCourse(c.id, sem)}
-                        onMove={(toSem) => moveCourse(c.id, sem, toSem)}
                       />
                     ))}
                   </div>
@@ -355,40 +392,28 @@ function PlannerTab() {
   );
 }
 
-function CoursePill({ course, semester, onRemove, onMove }) {
-  const [showMove, setShowMove] = useState(false);
-  const otherSems = SEMESTERS.filter((s) => s !== semester);
+function CoursePill({ course, semester, onRemove }) {
+  function handleDragStart(e) {
+    e.dataTransfer.setData("courseId", course.id);
+    e.dataTransfer.setData("fromSem", semester);
+    e.dataTransfer.effectAllowed = "move";
+  }
 
   return (
-    <div className="relative inline-flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-2.5 py-1 text-xs">
+    <div
+      draggable
+      onDragStart={handleDragStart}
+      className="inline-flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-2.5 py-1 text-xs cursor-grab active:cursor-grabbing active:opacity-50 active:scale-95 transition-all select-none"
+    >
       <span className="text-gray-400 font-mono text-[11px]">{course.code}</span>
       <span className="text-gray-700 max-w-[110px] truncate">{course.name}</span>
       <button
-        onClick={() => setShowMove((v) => !v)}
-        className="text-gray-300 hover:text-crimson-600 transition-colors px-0.5"
-        title="Move semester"
-      >
-        ⇄
-      </button>
-      <button
+        onMouseDown={(e) => e.stopPropagation()}
         onClick={onRemove}
-        className="text-gray-300 hover:text-red-500 transition-colors leading-none"
+        className="text-gray-300 hover:text-red-500 transition-colors leading-none ml-0.5"
       >
         ×
       </button>
-      {showMove && (
-        <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1 min-w-[110px]">
-          {otherSems.map((s) => (
-            <button
-              key={s}
-              onClick={() => { onMove(s); setShowMove(false); }}
-              className="block w-full text-left px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50"
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
