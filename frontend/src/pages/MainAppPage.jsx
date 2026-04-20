@@ -9,7 +9,7 @@ function slugify(s) {
 
 export default function MainAppPage() {
   const navigate = useNavigate();
-  const { primaryConcs, secondary } = useApp();
+  const { primaryConcs, secondary, selectedTracks } = useApp();
   const [activeTab, setActiveTab] = useState("courses");
 
   const allConcs = useMemo(
@@ -68,9 +68,9 @@ export default function MainAppPage() {
         </div>
 
         <div className="flex-1">
-          {activeTab === "courses" && <CoursesTab allConcs={allConcs} />}
+          {activeTab === "courses" && <CoursesTab allConcs={allConcs} selectedTracks={selectedTracks} />}
           {activeTab === "planner" && <PlannerTab />}
-          {activeTab === "requirements" && <RequirementsTab allConcs={allConcs} />}
+          {activeTab === "requirements" && <RequirementsTab allConcs={allConcs} selectedTracks={selectedTracks} />}
         </div>
       </div>
     </div>
@@ -79,51 +79,52 @@ export default function MainAppPage() {
 
 // ─── Courses Tab ───────────────────────────────────────────────────────────────
 
-function CoursesTab({ allConcs }) {
-  const { concentrationDetails, addConcentrationDetail, addCourse, removeCourse, isAdded, semesterPlan } = useApp();
+function CoursesTab({ allConcs, selectedTracks }) {
+  const { addCourse, removeCourse, isAdded, semesterPlan } = useApp();
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
   const [allSeasCourses, setAllSeasCourses] = useState([]);
+  const [reqsData, setReqsData] = useState({});
 
   useEffect(() => {
     fetch("/api/courses")
       .then((r) => r.json())
-      .then((data) => setAllSeasCourses(data));
+      .then(setAllSeasCourses);
   }, []);
 
   useEffect(() => {
     allConcs.forEach((conc) => {
-      if (!concentrationDetails[conc.name]) {
-        fetch(`/api/concentrations/${encodeURIComponent(conc.name)}`)
+      if (!reqsData[conc.name]) {
+        const track = selectedTracks?.[conc.name];
+        const url = `/api/requirements/${encodeURIComponent(conc.name)}${track ? `?track=${encodeURIComponent(track)}` : ""}`;
+        fetch(url)
           .then((r) => r.json())
-          .then((data) => addConcentrationDetail(conc.name, data));
+          .then((data) => setReqsData((prev) => ({ ...prev, [conc.name]: data })));
       }
     });
-  }, [allConcs]);
+  }, [allConcs, selectedTracks]);
 
   const { requiredIds, allCourses } = useMemo(() => {
     const reqIds = new Set();
+    const seen = new Set();
     const reqCourses = [];
-    const seenReq = new Set();
 
     allConcs.forEach((conc) => {
-      const detail = concentrationDetails[conc.name];
-      if (!detail) return;
-      detail.seas_required_course_matches.forEach((match) => {
-        match.matches.forEach((m) => {
-          const id = slugify(m.catalog_number);
-          reqIds.add(id);
-          if (seenReq.has(id)) return;
-          seenReq.add(id);
-          reqCourses.push({
-            id,
-            code: m.catalog_number,
-            name: m.title,
-            type: "req",
-            credits: 4,
-            desc: m.instructors_seen.slice(0, 2).join(", ") || "SEAS",
-            conc: conc.name,
-          });
+      const data = reqsData[conc.name];
+      if (!data || data.error) return;
+      data.matched.forEach((m) => {
+        if (!m.course) return;
+        reqIds.add(m.course.id);
+        if (seen.has(m.course.id)) return;
+        seen.add(m.course.id);
+        reqCourses.push({
+          id: m.course.id,
+          code: m.code,
+          name: m.course.title,
+          type: "req",
+          credits: m.course.credits || 4,
+          desc: (m.course.instructors || []).slice(0, 2).join(", ") || m.course.department || "SEAS",
+          conc: conc.name,
         });
       });
     });
@@ -141,9 +142,9 @@ function CoursesTab({ allConcs }) {
       }));
 
     return { requiredIds: reqIds, allCourses: [...reqCourses, ...elecCourses] };
-  }, [concentrationDetails, allConcs, allSeasCourses]);
+  }, [reqsData, allConcs, allSeasCourses]);
 
-  const loading = allConcs.some((c) => !concentrationDetails[c.name]);
+  const loading = allConcs.some((c) => !reqsData[c.name]);
 
   const filtered = useMemo(() => {
     let result = allCourses;
@@ -420,7 +421,7 @@ function CoursePill({ course, semester, onRemove }) {
 
 // ─── Requirements Tab ──────────────────────────────────────────────────────────
 
-function RequirementsTab({ allConcs }) {
+function RequirementsTab({ allConcs, selectedTracks }) {
   const { semesterPlan } = useApp();
   const [reqData, setReqData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -434,7 +435,9 @@ function RequirementsTab({ allConcs }) {
     let pending = allConcs.length;
     if (pending === 0) { setLoading(false); return; }
     allConcs.forEach((conc) => {
-      fetch(`/api/requirements/${encodeURIComponent(conc.name)}`)
+      const track = selectedTracks?.[conc.name];
+      const url = `/api/requirements/${encodeURIComponent(conc.name)}${track ? `?track=${encodeURIComponent(track)}` : ""}`;
+      fetch(url)
         .then((r) => r.json())
         .then((data) => setReqData((prev) => ({ ...prev, [conc.name]: data })))
         .finally(() => { pending--; if (pending === 0) setLoading(false); });
@@ -466,9 +469,14 @@ function RequirementsTab({ allConcs }) {
     <div className="px-5 py-4">
       {concSummaries.map(({ name, data, seasItems, done, pct }) => (
         <div key={name} className="mb-8">
-          <div className="flex justify-between items-baseline mb-1">
-            <h3 className="text-base font-medium text-gray-900">{name}</h3>
-            <span className="text-xs text-gray-400">{data.total_courses}</span>
+          <div className="flex justify-between items-start mb-1">
+            <div>
+              <h3 className="text-base font-medium text-gray-900">{name}</h3>
+              {selectedTracks?.[name] && (
+                <p className="text-xs text-crimson-600 mt-0.5">{selectedTracks[name]}</p>
+              )}
+            </div>
+            <span className="text-xs text-gray-400 shrink-0 mt-0.5">{data.total_courses}</span>
           </div>
 
           <div className="h-1 bg-gray-100 rounded-full mb-3 overflow-hidden">

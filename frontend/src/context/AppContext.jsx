@@ -16,11 +16,11 @@ function initPlan() {
 export function AppProvider({ children }) {
   const [primaryConcs, setPrimaryConcs] = useState([]);
   const [secondary, setSecondary] = useState(null);
-  const [concentrationDetails, setConcentrationDetails] = useState({});
+  const [selectedTracks, setSelectedTracks] = useState({});
   const [semesterPlan, setSemesterPlan] = useState(initPlan);
 
-  const addConcentrationDetail = useCallback((name, detail) => {
-    setConcentrationDetails((prev) => ({ ...prev, [name]: detail }));
+  const setSelectedTrack = useCallback((concName, track) => {
+    setSelectedTracks((prev) => ({ ...prev, [concName]: track }));
   }, []);
 
   const addedCourseIds = useMemo(
@@ -63,7 +63,7 @@ export function AppProvider({ children }) {
   const resetAll = useCallback(() => {
     setPrimaryConcs([]);
     setSecondary(null);
-    setConcentrationDetails({});
+    setSelectedTracks({});
     setSemesterPlan(initPlan());
   }, []);
 
@@ -72,7 +72,7 @@ export function AppProvider({ children }) {
       value={{
         primaryConcs, setPrimaryConcs,
         secondary, setSecondary,
-        concentrationDetails, addConcentrationDetail,
+        selectedTracks, setSelectedTrack,
         semesterPlan, addedCourseIds,
         addCourse, removeCourse, moveCourse, isAdded,
         resetAll,

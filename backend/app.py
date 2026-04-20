@@ -10,7 +10,7 @@ CORS(app)
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
-with open(os.path.join(DATA_DIR, "SEAS_courses_clean.json")) as f:
+with open(os.path.join(DATA_DIR, "courses.json")) as f:
     _RAW_COURSES = json.load(f)
 
 def _parse_req_codes(text):
@@ -37,13 +37,23 @@ def _norm_num(s):
     return s
 
 
-_REQUIREMENTS_BY_CONC = {}
+_ALL_REQ_ROWS = []
+_TRACKS_BY_CONC = {}   # name -> list of track dicts (no Joint tracks)
+_REQUIREMENTS_BY_CONC = {}  # name -> first Basic/Standard/A.B. entry (fallback)
+
 _csv_path = os.path.join(DATA_DIR, "harvard_concentration_requirements.csv")
 if os.path.exists(_csv_path):
     with open(_csv_path, newline="") as _f:
         for _row in csv.DictReader(_f):
             _name = _row["concentration"]
             _track = _row["track"]
+            _ALL_REQ_ROWS.append(_row)
+            if "Joint" not in _track:
+                _TRACKS_BY_CONC.setdefault(_name, []).append({
+                    "track": _track,
+                    "total_courses": _row["total_courses"],
+                    "thesis": _row["thesis"],
+                })
             if any(kw in _track for kw in ("Basic", "Standard", "A.B.")):
                 if _name not in _REQUIREMENTS_BY_CONC:
                     _REQUIREMENTS_BY_CONC[_name] = {
@@ -58,85 +68,24 @@ if os.path.exists(_csv_path):
 with open(os.path.join(DATA_DIR, "harvard_concentrations_matched_seas_only.json")) as f:
     _RAW_CONCENTRATIONS = json.load(f)
 
-
-def _merge_concentration_entries(entries):
-    if len(entries) == 1:
-        return entries[0]
-    base = next((e for e in entries if e["type"] == "Primary Concentration"), entries[0])
-    seen_codes = set()
-    merged = []
-    for entry in entries:
-        for m in entry.get("seas_required_course_matches", []):
-            if m["required_code"] not in seen_codes:
-                seen_codes.add(m["required_code"])
-                merged.append(m)
-    return {**base, "seas_required_course_matches": merged, "seas_required_code_match_total": len(merged)}
-
-
-_conc_groups = {}
-for _c in _RAW_CONCENTRATIONS:
-    _conc_groups.setdefault(_c["name"], []).append(_c)
-ALL_CONCENTRATIONS = sorted(
-    [_merge_concentration_entries(v) for v in _conc_groups.values()],
-    key=lambda c: c["name"]
-)
+_seen_conc_names = set()
+ALL_CONCENTRATIONS = []
+for _c in sorted(_RAW_CONCENTRATIONS, key=lambda c: c["name"]):
+    if _c["name"] not in _seen_conc_names:
+        _seen_conc_names.add(_c["name"])
+        ALL_CONCENTRATIONS.append({"name": _c["name"], "type": _c["type"]})
 
 
 def _slugify(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
 
-def _derive_level(catalog_number):
-    m = re.search(r"\d+", catalog_number)
-    if not m:
-        return "Other"
-    n = int(m.group())
-    if n < 100:
-        return "Introductory"
-    elif n < 200:
-        return "100-level"
-    elif n < 300:
-        return "200-level"
-    else:
-        return "300+-level"
-
-
-def _normalize_term(sem):
-    term_cap = sem["term"].capitalize()
-    return f"{term_cap} {sem['calendar_year']}"
-
-
-_TERM_SORT_KEY = {"Fall": 0, "Spring": 1, "Summer": 2}
-
-
-def _term_sort(t):
-    parts = t.split()
-    return (int(parts[1]), _TERM_SORT_KEY.get(parts[0], 9))
-
-
 def _build_course(raw):
-    semesters = raw.get("semesters", [])
-    terms = sorted({_normalize_term(s) for s in semesters}, key=_term_sort)
-    term = terms[-1] if terms else ""
+    term = raw.get("term", "")
     return {
-        "id": _slugify(raw["catalog_number"]),
-        "course_number": raw["catalog_number"],
-        "title": raw["title"],
-        "department": raw["catalog_prefix"],
-        "instructors": raw.get("instructors_seen", []),
-        "term": term,
-        "terms": terms,
-        "level": _derive_level(raw["catalog_number"]),
-        "description": "",
-        "tags": [],
-        "schedule": "",
-        "location": "",
-        "enrollment": None,
-        "max_enrollment": None,
-        "credits": 4,
-        "prerequisites": [],
-        "semesters": semesters,
-        "aliases": raw.get("aliases", []),
+        **raw,
+        "id": raw.get("id") or _slugify(raw["course_number"]),
+        "terms": [term] if term else [],
     }
 
 
@@ -144,10 +93,7 @@ ALL_COURSES = [_build_course(c) for c in _RAW_COURSES]
 _COURSE_BY_ID = {c["id"]: c for c in ALL_COURSES}
 _COURSE_BY_NORM = {_norm_num(c["course_number"]): c for c in ALL_COURSES}
 
-_ALL_TERMS = sorted(
-    {t for c in ALL_COURSES for t in c["terms"]},
-    key=_term_sort
-)
+_ALL_TERMS = sorted({t for c in ALL_COURSES for t in c["terms"]})
 
 
 @app.route("/api/courses", methods=["GET"])
@@ -201,21 +147,43 @@ def get_terms():
 
 @app.route("/api/concentrations", methods=["GET"])
 def get_concentrations():
-    return jsonify([
-        {
-            "name": c["name"],
-            "type": c["type"],
-            "seas_required_code_match_total": c["seas_required_code_match_total"],
-        }
-        for c in ALL_CONCENTRATIONS
-    ])
+    return jsonify(ALL_CONCENTRATIONS)
+
+
+@app.route("/api/tracks/<path:name>", methods=["GET"])
+def get_tracks(name):
+    tracks = _TRACKS_BY_CONC.get(name) or next(
+        (v for k, v in _TRACKS_BY_CONC.items() if k.lower() == name.lower()), None
+    )
+    if tracks is None:
+        return jsonify({"error": "No tracks found"}), 404
+    return jsonify(tracks)
 
 
 @app.route("/api/requirements/<path:name>", methods=["GET"])
 def get_requirements(name):
-    req = next(
-        (v for k, v in _REQUIREMENTS_BY_CONC.items() if k.lower() == name.lower()), None
-    )
+    track_filter = request.args.get("track", "").strip()
+
+    req = None
+    if track_filter:
+        row = next(
+            (r for r in _ALL_REQ_ROWS
+             if r["concentration"].lower() == name.lower() and r["track"] == track_filter),
+            None,
+        )
+        if row:
+            req = {
+                "total_courses": row["total_courses"],
+                "required_courses_text": row["required_courses"],
+                "tutorials": row["tutorials"],
+                "thesis": row["thesis"],
+                "required_codes": _parse_req_codes(row["required_courses"]),
+            }
+
+    if req is None:
+        req = next(
+            (v for k, v in _REQUIREMENTS_BY_CONC.items() if k.lower() == name.lower()), None
+        )
     if req is None:
         return jsonify({"error": "Requirements not found"}), 404
 
@@ -234,15 +202,6 @@ def get_requirements(name):
         "matched": matched,
     })
 
-
-@app.route("/api/concentrations/<path:name>", methods=["GET"])
-def get_concentration(name):
-    conc = next(
-        (c for c in ALL_CONCENTRATIONS if c["name"].lower() == name.lower()), None
-    )
-    if conc is None:
-        return jsonify({"error": "Concentration not found"}), 404
-    return jsonify(conc)
 
 
 if __name__ == "__main__":
