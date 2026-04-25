@@ -19,11 +19,6 @@ def get_courses():
     return jsonify([])
 
 
-@app.route("/api/tracks/<path:name>", methods=["GET"])
-def get_tracks(name):
-    return jsonify([])
-
-
 @app.route("/api/requirements/<path:name>", methods=["GET"])
 def get_requirements(name):
     return jsonify({"error": "No data loaded yet"}), 404
