@@ -1,24 +1,9 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import ConcentrationSelectPage from "./pages/ConcentrationSelectPage";
-import MainAppPage from "./pages/MainAppPage";
-import { useApp } from "./context/AppContext";
 
 export default function App() {
-  const { primaryConcs } = useApp();
-  const hasConc = primaryConcs.length > 0;
-
   return (
-    <Routes>
-      <Route path="/concentration" element={<ConcentrationSelectPage />} />
-      <Route
-        path="/app"
-        element={hasConc ? <MainAppPage /> : <Navigate to="/concentration" replace />}
-      />
-      <Route
-        path="*"
-        element={<Navigate to={hasConc ? "/app" : "/concentration"} replace />}
-      />
-    </Routes>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <p className="text-gray-400 text-sm">Harvard Course Planner</p>
+    </div>
   );
 }
