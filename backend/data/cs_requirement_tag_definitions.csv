@@ -1,0 +1,16 @@
+tag,definition
+corecs,Course content mostly classifiable as Computer Science.
+advancedcs,"Advanced undergraduate level or above CS, typically CS 1000+ equivalent."
+programming1,Significant software construction and engineering practice.
+programming2,Advanced significant software construction and engineering practice.
+formalreasoning,Significant formal reasoning about computer science.
+complimitations,Computability and complexity theory; fundamental limits of computation.
+algorithms,"Introductory algorithms, algorithmic analysis, and data structures."
+intermediatealgorithms,Algorithms and data structures at greater sophistication.
+systems,"Computer system development involving software/hardware interfaces, performance, robustness, or security."
+computationandtheworld,Computational models/systems interacting with aspects of the empirical world.
+ai,Tools and techniques that model or replicate intelligent behavior.
+probability,Satisfies probability-related requirement.
+linearalgebra,Satisfies linear algebra-related requirement.
+discretemath,Satisfies discrete math-related requirement.
+secondary,Can count for secondary field requirements where applicable.

@@ -1,0 +1,189 @@
+course_number,title,tags,notes,is_corecs,is_advancedcs,is_secondary,is_programming1,is_programming2,is_formalreasoning,is_complimitations,is_algorithms,is_intermediatealgorithms,is_systems,is_computationandtheworld,is_ai,is_probability,is_linearalgebra,is_discretemath
+AC215,"Topics in Applied Computation: Advanced Practical Data Science, MLOps","corecs, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AC221,Critical Thinking in Data Science,"corecs, computationandtheworld, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+AC295 / CS2871r (Fall 2021 only),Deep Learning for NLP,"corecs, computationandtheworld, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+AIT Algorithms and Data Structures (Study Abroad),,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AIT Deep learning (Study Abroad),,"corecs, computationandtheworld, ai, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+AIT Theory of Computing (Study Abroad),,"corecs, formalreasoning, complimitations, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM106,Applied Algebra,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM107,Graph Theory and Combinatorics,"corecs, formalreasoning, discretemath, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE
+AM115,Mathematical Modeling,"corecs, computationandtheworld",,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+AM120,Applied Linear Algebra and Big Data,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM121,Introduction to Optimization: Models and Methods,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM158 / ES158,Introduction to Optimal Control and Estimation,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM207,"Stochastic Methods for Data Analysis, Inference and Optimization",corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM21A,Mathematical Methods in the Sciences,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+AM220,Geometric Methods for Machine Learning,"corecs, formalreasoning, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE
+AM22A,Solving and Optimizing,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+AM22B,Integrating and Approximating,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1,Great Ideas in Computer Science,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS10 / STAT10,Elements of Data Science,corecs,No longer offered,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1050 (formerly CS105),Privacy and Technology,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1060,Software Engineering with Generative AI,"corecs, programming2, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1066,Build at the Speed of Thought,corecs,Cannot be taken for credit if CS 1060 already complete,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1070 / AC207 (formerly CS107),Systems Development for Computational Science,"corecs, programming1, advancedcs, secondary",No longer offered,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1090A / STAT109A / AC209A (formerly CS109A) (2024 and earlier only),Data Science 1: Introduction to Data Science,"corecs, programming1, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1090A / STAT109A / AC209A (formerly CS109A) (2025 and later only),Data Science 1: Introduction to Data Science,"corecs, programming1, computationandtheworld, secondary",Also advancedcs if approved on a plan of study before 2025-02-01.,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1090B / STAT109B / AC209B (formerly CS109B),Data Science 2: Advanced Topics in Data Science,"corecs, programming1, computationandtheworld, advancedcs, secondary",AKA STAT121B until 2022,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1200 (formerly CS120),"Introduction to Algorithms, Computability, and Complexity","corecs, formalreasoning, complimitations, algorithms, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1210 (formerly CS121),Introduction to Theoretical Computer Science,"corecs, formalreasoning, complimitations, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1240 (formerly CS124),Data Structures and Algorithms,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1251,Introduction to Graph Theory,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1260 (formerly CS126),Fairness and Privacy: Perspectives of Law and Probability,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1261 (formerly CS126),"Privacy, Fairness, and Validity Through the Lens of Theoretical CS","corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1270 / CS2270 (formerly CS127),Cryptography,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1280 / AM122 (formerly CS128),Convex Optimization and Applications in Machine Learning,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1360 (formerly CS136),Economics and Computation,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1410 (formerly CS141),Computing Hardware,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1411 (formerly CS146),Computer Architecture,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1430 (formerly CS143),Computer Networks,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1440R (formerly CS144R),Networks Design Projects,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1450 (formerly CS145),Networking at Scale,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1480 (formerly CS148),Design of VLSI Circuits and Systems,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1520 (formerly CS152),Programming Languages,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1530 (formerly CS153),Compilers,"corecs, programming2, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1610 (formerly CS161),Operating Systems,"corecs, programming2, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1650 (formerly CS165),Data Systems,"corecs, programming2, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1710 (formerly CS171),Visualization,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1750 (formerly CS175),Computer Graphics,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS1780 (formerly CS178),Engineering Usable Interactive Systems,"corecs, programming2, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS179,Design of Useful and Usable Interactive Systems,"corecs, advancedcs, secondary",2022 and earlier,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1810 (formerly CS181),Machine Learning,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS1820 (formerly CS182),Artificial Intelligence,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS1840 (formerly CS184),Reinforcement learning,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS1870 (formerly CS187),Introduction to Computational Linguistics and Natural-language Processing,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS1890 (formerly CS189),Autonomous Robot Systems,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1910 (formerly CS191),Classics of Computer Science,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1960 / EDU T217 (formerly CS196),Designing K–12 Computer Science Learning Experiences,"corecs, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS1970 (formerly CS197),AI Research Experiences,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS20,Discrete Mathematics for Computer Science,"corecs, formalreasoning, discretemath, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE
+CS2050 (formerly CS205),Computing Foundations for Computational Science,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2080 (formerly CS208),Applied Privacy for Data Science,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2210 (formerly CS221),Computational Complexity,"corecs, formalreasoning, complimitations, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2211,Information Theory in CS,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2212 (formerly CS229R),Topics in Theoretical Computer Science: Biology and Complexity,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2231 (formerly CS231),Quantum Computation and Quantum Complexity,"corecs, formalreasoning, advancedcs, secondary",Mutually exclusive with QSE 210a,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2232 / MIT 6.5430,Frontiers of Quantum Complexity Theory,"corecs, formalreasoning, complimitations, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2233,Quantum Learning Theory,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS224 (formerly CS224),Advanced Algorithms,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2241 (formerly CS222),Algorithms at the Ends of the Wire,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2242 (formerly CS223),Probabilistic Analysis and Algorithms,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2243,Algorithms for Data Science,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2252 (formerly CS229CR),High Dimensional Probability: Spectral Graph Theory in CS,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2253,Seminar on Pseudorandomness & High-Dimensional Expanders,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2260 (formerly CS226R),Topics in Theory for Society: Fairness and Validity,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2261 (formerly CS226R),Topics in Theory for Society: Algorithmic Fairness,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2280 (formerly CS228),Computational Learning Theory,"corecs, formalreasoning, complimitations, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE
+CS2281R (Fall 2024 only),Mathematical & Engineering Principles for Training Foundation Models,"corecs, computationandtheworld, advancedcs","Unlike most classes numbered x2xx, this is not a theoretical CS class.",TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2281R (formerly CS229BR) (All but Fall 2024 only),Topics in Foundations of ML,"corecs, formalreasoning, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS229BR (Spring 2021 only),Advanced Topics in the Theory of Machine Learning,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS229BR (Spring 2023 only),Advanced Topics in the Theory of Machine Learning,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS229R (Fall 2022 only),Topics in Theoretical Computer Science: Information Theory,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS229R (Fall 2023 only),Essential Coding Theory,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2340 (formerly CS234R),Topics on Computation in Networks and Crowds,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2360r (formerly CS236R),Topics at the Interface between Computer Science and Economics,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2370 (formerly CS237),Economic Analysis as a Frontier of Theoretical Computer Science,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2380 (formerly CS238),Optimized Democracy,"corecs, formalreasoning, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2411 (formerly CS246),Advanced Computer Architecture,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2420 (formerly CS242),Computing at Scale,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2430 (formerly CS243),Advanced Computer Networks,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2470r (formerly CS247R),Advanced Topics in Computer Architecture,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2490r (formerly CS249R),Tiny Machine Learning,"corecs, systems, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2520r (formerly CS252R),Advanced Topics in Programming Languages,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2540 (formerly CS254),Formal Methods for Computer Security,"corecs, formalreasoning, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2600r (formerly CS260R),Projects and Close Readings in Software Systems,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2610 (formerly CS261),Research Topics in Operating Systems,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2620 (formerly CS262),Introduction to Distributed Computing,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2630 (formerly CS263),Systems Security,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2650 (formerly CS265),Big Data Systems,"corecs, systems, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2710 (formerly CS271),Topics in Data Visualization,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2760 (formerly CS276),"Design, Technology, and Social Impact","corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2780,"Conceptualizing, Building, and Evaluating Usable Novel Interactive Systems","corecs, programming2, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2790r (formerly CS279R),Research Topics in Human-Computer Interaction,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2810 (formerly CS281),Advanced Machine Learning,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS2821r (formerly CS282BR),Topics in Machine Learning: Interpretability and Explainability,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS2822r (formerly CS282R),Topics in Machine Learning,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS2823r,Advanced Topics in Modern Machine Learning,"corecs, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE
+CS2824,Foundations of Reinforcement Learning,"corecs, formalreasoning, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE
+CS2831 (formerly CS283),Computer Vision,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2840,Computational Optimal Transport for Machine Learning,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS2860 (formerly CS286),"Multi-Robot Systems: Control, Communication, and Security","corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2871 (formerly CS287),,"corecs, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2880 (formerly CS288),AI for Social Impact,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2881r,Topics in Foundations of ML: AI Alignment and Safety,"corecs, computationandtheworld, ai, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+CS2890 (formerly CS289),Autonomous Robot Systems,"corecs, computationandtheworld, advancedcs, secondary",,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS2901 (formerly CS290),PhD Grad Cohort Research Seminar,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS2990r (formerly CS299R),Special Topics in Computer Science,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS32,Computational Thinking and Problem Solving,"corecs, programming1, secondary",Mutually exclusive with CS50 and CSCI S-111,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS3330 (formerly CS333),Individual Risk,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS37 / ECON1071,Incentives in the Wild: from Tanking in Sports to Mining Cryptocurrencies,"corecs, computationandtheworld, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+CS50,Introduction to Computer Science,"corecs, programming1, secondary",Mutually exclusive with CS32 and CSCI S-111,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS51,Abstraction and Design in Computation,"corecs, programming2, secondary",,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS61,Systems Programming and Machine Organization,"corecs, programming2, systems, secondary",,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS73,"Code, Data, and Art","corecs, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS79,Design of Useful and Usable Interactive Systems,"corecs, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS90NAR,Applied Ethical and Governance Challenges in AI,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS90NBR,Internet & Society: The Technologies and Politics of Control and CS,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS90NCR,Law for Algorithms: A Research and Discussion Forum,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS90NDR,Case Studies in Public and Private Policy Challenges of AI,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS91R,Supervised Reading and Research,corecs,"For MBB & Joint plans, counts as advancedcs",TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+CS96,System Design Projects,"corecs, secondary",,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+ECON 2070,A Computer Science Toolbox for Modern Economic Theory,"corecs, formalreasoning, computationandtheworld, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+ES143,Computer Vision,"corecs, computationandtheworld",,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+ES150,Probability with Engineering Applications,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
+ES170,Engineering Quantum Mechanics,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+ES256,Informal Robotics,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+ES50,Introduction to Electrical Engineering,corecs,Mutually exclusive with ES54,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+ES54,Electronics for Engineers,corecs,Mutually exclusive with ES50,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATH101,"Sets, Groups and Topology","corecs, formalreasoning, discretemath",Class of 2026 and later: Mutually exclusive with CS20 and MATH152,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE
+MATH152,Discrete Mathematics,"corecs, formalreasoning, discretemath",Mutually exclusive with CS20 and MATH101,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE
+MATH154,Probability Theory,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
+MATH1A,Introduction to Calculus,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATH1B,Introduction to Calculus,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATH21A,Multivariable Calculus,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATH21B,Linear Algebra and Differential Equations,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+MATH22A,Vector Calculus and Linear Algebra I,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+MATH23A,Linear Algebra and Real Analysis I,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+MATH23B,Linear Algebra and Real Analysis II,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+MATH23C,"Mathematics for Computation, Statistics, and Data Science",discretemath,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE
+MATH25A,Theoretical Linear Algebra and Real Analysis I,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+MATH25B,Theoretical Linear Algebra and Real Analysis II,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATH55A,Studies in Algebra and Group Theory,linearalgebra,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE
+MATH55B,Studies in Real and Complex analysis,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATHMA,Introduction to Functions and Calculus I,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MATHMB,Introduction to Functions and Calculus II,,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 21M.387 / MIT 6.S197,Fundamentals of Music Processing,"corecs, computationandtheworld",,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+MIT 6.1040 / MIT 6.170,Software Studio,"corecs, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.1060 / MIT 6.172,Performance Engineering of Software Systems,"corecs, systems, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.3700 (Spring 2027 only),Introduction to Probability,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
+"MIT 6.3900 / MIT 6.036 (Fall only, 2025 and later only)",Introduction to Machine Learning,"corecs, computationandtheworld, ai, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+MIT 6.4120 / MIT 6.804 / MIT 9.66,Computational Cognitive Science,"corecs, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.4550 / MIT 21M.385 / MIT 6.185,Interactive Music Systems,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5210 / MIT 6.854,Advanced Algorithms,"corecs, formalreasoning, algorithms, intermediatealgorithms, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5310 / MIT 6.849,Computational Geometry,"corecs, formalreasoning, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5410 / MIT 18.405 / MIT 6.841,Advanced Complexity Theory,"corecs, formalreasoning, complimitations, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5610 / MIT 6.857,Computer and Network Security,"corecs, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5620 / MIT 6.875,Cryptography and Cryptanalysis,"corecs, formalreasoning, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5660 / MIT 6.858,Comp Systems Security,"corecs, systems, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5840 / MIT 6.824,Distributed Systems Engineering,"corecs, programming2, systems, advancedcs",,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.5940,TinyML and Efficient Deep Learning Computing,"corecs, computationandtheworld, ai, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+MIT 6.7320 / MIT 6.338j,Parallel Computing and Scientific Machine Learning,"corecs, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 6.7900 / MIT 6.867,Machine Learning,"corecs, computationandtheworld, ai, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+MIT 6.7960 / MIT 6.S898,Deep Learning,"corecs, computationandtheworld, ai, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+MIT 6.8200 / MIT 6.484,Computational Sensorimotor Learning,"corecs, computationandtheworld, ai, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+MIT 6.8611 / MIT 6.8610 / MIT 6.806 (formerly MIT 6.864),Advanced Natural Language Processing,"corecs, computationandtheworld, ai, advancedcs",Mutually exclusive with MIT 9.19.,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE
+MIT 8.370 / MIT 18.435 / MIT 2.111,Quantum Computation,"corecs, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+MIT 9.19,Computational Psycholinguistics,"corecs, computationandtheworld, advancedcs",Mutually exclusive with MIT 6.806/6.864,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+Neuro140 / Neuro240,,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+Neuro1401,Computational Cognitive Neuroscience: Building Models of the Brain,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+"Oxford Automata, Logic, and Games (Study Abroad)",,"corecs, formalreasoning, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+Oxford Computer Architecture (Study Abroad),,"corecs, systems",,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+PHY123b / ES153,Laboratory Electronics,"corecs, systems",,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+PHY160,Introduction to Quantum Information,corecs,,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+PHY260a / QSE 210a,Introduction to quantum information,"corecs, formalreasoning, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+PHY260b / QSE 210b,Introduction to quantum information II,"corecs, formalreasoning, advancedcs",,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+STAT110 / STAT S-110,Introduction to Probability,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
+STAT111,Introduction to Statistical Inference,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
+STAT195,Statistical Machine Learning,"corecs, computationandtheworld",,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE
+STAT210,Probability Theory and Statistical Inference I,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
+STAT220,Bayesian Data Analysis,probability,,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE
