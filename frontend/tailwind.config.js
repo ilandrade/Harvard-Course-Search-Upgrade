@@ -17,6 +17,7 @@ export default {
           900: "#080f1f",
         },
         crimson: {
+          DEFAULT: "#A41034",
           50:  "#fdf2f2",
           100: "#fde0e0",
           200: "#fbbfbf",
