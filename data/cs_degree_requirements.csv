@@ -1,0 +1,69 @@
+plan,requirement_group,requirement_name,requirement_type,count_min,count_max,credits_min,credits_max,tag_key,course_options,counts_toward_core,required,notes
+Basic,Plan Summary,Total concentration requirements,summary,11,14,44,56,,,,yes,"Total depends on starting math level: Math Ma = 14, Math 1a = 13, Math 1b = 12, Math 21b/similar = 11."
+Honors,Plan Summary,Total concentration requirements,summary,13,16,52,64,,,,yes,Same math range as Basic plus 11 CS core courses.
+Joint,Plan Summary,CS field requirements,summary,10,13,40,52,,,,yes,"Same as Basic except 8 CS core courses, CS91r may satisfy Advanced CS, and thesis is required."
+MBB,Plan Summary,"Mind, Brain, and Behavior requirements",summary,13,16,52,64,,,,yes,"Honors-only MBB program with 8 CS core courses, 3 MBB courses, and required computationally oriented thesis."
+Basic,Mathematical Preparation,Pre-calculus and single-variable calculus,course_requirement,0,3,,,calculus,MATH MA; MATH MB; MATH 1A; MATH 1B,,yes,Students may place out depending on starting math course. Paths: MA/MB/1B or 1A/1B.
+Basic,Mathematical Preparation,Linear algebra,course_requirement,1,1,,,linearalgebra,AM22A; MATH21B; MATH22A; MATH23A; MATH25A; MATH55A; more advanced approved course,,yes,One course in linear algebra.
+Basic,Mathematical Preparation,Probability,course_requirement,1,1,,,probability,STAT110; ES150; MATH154; more advanced approved course,,yes,One course in probability.
+Honors,Mathematical Preparation,Pre-calculus and single-variable calculus,course_requirement,0,3,,,calculus,MATH MA; MATH MB; MATH 1A; MATH 1B,,yes,Students may place out depending on starting math course. Paths: MA/MB/1B or 1A/1B.
+Honors,Mathematical Preparation,Linear algebra,course_requirement,1,1,,,linearalgebra,AM22A; MATH21B; MATH22A; MATH23A; MATH25A; MATH55A; more advanced approved course,,yes,One course in linear algebra.
+Honors,Mathematical Preparation,Probability,course_requirement,1,1,,,probability,STAT110; ES150; MATH154; more advanced approved course,,yes,One course in probability.
+Joint,Mathematical Preparation,Pre-calculus and single-variable calculus,course_requirement,0,3,,,calculus,MATH MA; MATH MB; MATH 1A; MATH 1B,,yes,Students may place out depending on starting math course. Paths: MA/MB/1B or 1A/1B.
+Joint,Mathematical Preparation,Linear algebra,course_requirement,1,1,,,linearalgebra,AM22A; MATH21B; MATH22A; MATH23A; MATH25A; MATH55A; more advanced approved course,,yes,One course in linear algebra.
+Joint,Mathematical Preparation,Probability,course_requirement,1,1,,,probability,STAT110; ES150; MATH154; more advanced approved course,,yes,One course in probability.
+MBB,Mathematical Preparation,Pre-calculus and single-variable calculus,course_requirement,0,3,,,calculus,MATH MA; MATH MB; MATH 1A; MATH 1B,,yes,Students may place out depending on starting math course. Paths: MA/MB/1B or 1A/1B.
+MBB,Mathematical Preparation,Linear algebra,course_requirement,1,1,,,linearalgebra,AM22A; MATH21B; MATH22A; MATH23A; MATH25A; MATH55A; more advanced approved course,,yes,One course in linear algebra.
+MBB,Mathematical Preparation,Probability,course_requirement,1,1,,,probability,STAT110; ES150; MATH154; more advanced approved course,,yes,One course in probability.
+Basic,Computer Science Core,Approved CS core courses,core_count,9,9,,,corecs,Courses tagged corecs from approved list,,yes,Strict majority of core courses must have Harvard CS course numbers.
+Honors,Computer Science Core,Approved CS core courses,core_count,11,11,,,corecs,Courses tagged corecs from approved list,,yes,Strict majority of core courses must have Harvard CS course numbers.
+Joint,Computer Science Core,Approved CS core courses,core_count,8,8,,,corecs,Courses tagged corecs from approved list,,yes,CS91r may be used to satisfy an Advanced CS requirement.
+MBB,Computer Science Core,Approved CS core courses,core_count,8,8,,,corecs,Courses tagged corecs from approved list,,yes,Same as Honors except only 8 CS core courses and 4 Advanced CS courses.
+Basic,Computer Science Core Tags,Programming 1 and Programming 2,tag_requirement,2,2,,,programming1; programming2,Either 1 programming1 + 1 programming2 OR 2 programming2 courses,yes,yes,Courses must include significant software construction and engineering practice.
+Basic,Computer Science Core Tags,Formal Reasoning,tag_requirement,3,3,,,formalreasoning,Courses tagged formalreasoning,yes,yes,"Must include discrete math if not waived, computational limitations, and algorithms/intermediate algorithms."
+Basic,Computer Science Core Tags,Discrete Mathematics,tag_requirement,0,1,,,discretemath,CS20; MATH101; MATH152; other tagged/approved course,yes,yes,May be skipped with DUS approval. Some discrete math courses cannot count after more advanced formal reasoning courses.
+Basic,Computer Science Core Tags,Computational Limitations,tag_requirement,1,1,,,complimitations,CS1200; CS1210; other tagged/approved course,yes,yes,Covers computability and complexity.
+Basic,Computer Science Core Tags,Algorithms,tag_requirement,1,1,,,algorithms,CS1200; CS1240; other tagged/approved course,yes,yes,Basic and Joint require one Algorithms course.
+Basic,Computer Science Core Tags,Systems,tag_requirement,1,1,,,systems,Courses tagged systems,yes,yes,Must contain significant computer system development.
+Basic,Computer Science Core Tags,Computation and the World,tag_requirement,1,1,,,computationandtheworld,Courses tagged computationandtheworld,yes,yes,"Covers interactions between computation and informational, natural, human, or social systems."
+Honors,Computer Science Core Tags,Programming 1 and Programming 2,tag_requirement,2,2,,,programming1; programming2,Either 1 programming1 + 1 programming2 OR 2 programming2 courses,yes,yes,Courses must include significant software construction and engineering practice.
+Honors,Computer Science Core Tags,Formal Reasoning,tag_requirement,3,3,,,formalreasoning,Courses tagged formalreasoning,yes,yes,"Must include discrete math if not waived, computational limitations, and algorithms/intermediate algorithms."
+Honors,Computer Science Core Tags,Discrete Mathematics,tag_requirement,0,1,,,discretemath,CS20; MATH101; MATH152; other tagged/approved course,yes,yes,May be skipped with DUS approval. Some discrete math courses cannot count after more advanced formal reasoning courses.
+Honors,Computer Science Core Tags,Computational Limitations,tag_requirement,1,1,,,complimitations,CS1200; CS1210; other tagged/approved course,yes,yes,Covers computability and complexity.
+Honors,Computer Science Core Tags,Intermediate Algorithms,tag_requirement,1,1,,,intermediatealgorithms,CS1240; other tagged/approved course,yes,yes,Honors and MBB require Intermediate Algorithms instead of the Basic Algorithms tag.
+Honors,Computer Science Core Tags,Systems,tag_requirement,1,1,,,systems,Courses tagged systems,yes,yes,Must contain significant computer system development.
+Honors,Computer Science Core Tags,Computation and the World,tag_requirement,1,1,,,computationandtheworld,Courses tagged computationandtheworld,yes,yes,"Covers interactions between computation and informational, natural, human, or social systems."
+Joint,Computer Science Core Tags,Programming 1 and Programming 2,tag_requirement,2,2,,,programming1; programming2,Either 1 programming1 + 1 programming2 OR 2 programming2 courses,yes,yes,Courses must include significant software construction and engineering practice.
+Joint,Computer Science Core Tags,Formal Reasoning,tag_requirement,3,3,,,formalreasoning,Courses tagged formalreasoning,yes,yes,"Must include discrete math if not waived, computational limitations, and algorithms/intermediate algorithms."
+Joint,Computer Science Core Tags,Discrete Mathematics,tag_requirement,0,1,,,discretemath,CS20; MATH101; MATH152; other tagged/approved course,yes,yes,May be skipped with DUS approval. Some discrete math courses cannot count after more advanced formal reasoning courses.
+Joint,Computer Science Core Tags,Computational Limitations,tag_requirement,1,1,,,complimitations,CS1200; CS1210; other tagged/approved course,yes,yes,Covers computability and complexity.
+Joint,Computer Science Core Tags,Algorithms,tag_requirement,1,1,,,algorithms,CS1200; CS1240; other tagged/approved course,yes,yes,Basic and Joint require one Algorithms course.
+Joint,Computer Science Core Tags,Systems,tag_requirement,1,1,,,systems,Courses tagged systems,yes,yes,Must contain significant computer system development.
+Joint,Computer Science Core Tags,Computation and the World,tag_requirement,1,1,,,computationandtheworld,Courses tagged computationandtheworld,yes,yes,"Covers interactions between computation and informational, natural, human, or social systems."
+MBB,Computer Science Core Tags,Programming 1 and Programming 2,tag_requirement,2,2,,,programming1; programming2,Either 1 programming1 + 1 programming2 OR 2 programming2 courses,yes,yes,Courses must include significant software construction and engineering practice.
+MBB,Computer Science Core Tags,Formal Reasoning,tag_requirement,3,3,,,formalreasoning,Courses tagged formalreasoning,yes,yes,"Must include discrete math if not waived, computational limitations, and algorithms/intermediate algorithms."
+MBB,Computer Science Core Tags,Discrete Mathematics,tag_requirement,0,1,,,discretemath,CS20; MATH101; MATH152; other tagged/approved course,yes,yes,May be skipped with DUS approval. Some discrete math courses cannot count after more advanced formal reasoning courses.
+MBB,Computer Science Core Tags,Computational Limitations,tag_requirement,1,1,,,complimitations,CS1200; CS1210; other tagged/approved course,yes,yes,Covers computability and complexity.
+MBB,Computer Science Core Tags,Intermediate Algorithms,tag_requirement,1,1,,,intermediatealgorithms,CS1240; other tagged/approved course,yes,yes,Honors and MBB require Intermediate Algorithms instead of the Basic Algorithms tag.
+MBB,Computer Science Core Tags,Systems,tag_requirement,1,1,,,systems,Courses tagged systems,yes,yes,Must contain significant computer system development.
+MBB,Computer Science Core Tags,Computation and the World,tag_requirement,1,1,,,computationandtheworld,Courses tagged computationandtheworld,yes,yes,"Covers interactions between computation and informational, natural, human, or social systems."
+Basic,Computer Science Core Tags,Advanced Computer Science,tag_requirement,4,4,,,advancedcs,Courses tagged advancedcs,yes,yes,Roughly corresponds to CS courses numbered 1000 and above.
+Honors,Computer Science Core Tags,Artificial Intelligence,tag_requirement,1,1,,,ai,Courses tagged ai,yes,yes,One AI course required; most also satisfy Computation and the World.
+Honors,Computer Science Core Tags,Advanced Computer Science,tag_requirement,5,5,,,advancedcs,Courses tagged advancedcs,yes,yes,One more Advanced CS course than Basic.
+Joint,Computer Science Core Tags,Advanced Computer Science,tag_requirement,4,4,,,advancedcs,Courses tagged advancedcs; CS91R allowed,yes,yes,CS91r may satisfy an Advanced CS requirement for joint concentrations.
+MBB,Computer Science Core Tags,Artificial Intelligence,tag_requirement,1,1,,,ai,Courses tagged ai,yes,yes,Based on Honors requirements.
+MBB,Computer Science Core Tags,Advanced Computer Science,tag_requirement,4,4,,,advancedcs,Courses tagged advancedcs; one CS91R allowed,yes,yes,MBB requires 4 Advanced CS courses rather than Honors' 5; one CS91r may be used.
+Basic,Computer Science Core,Harvard CS-numbered courses,core_subrequirement,5,5,,,,,,yes,At least 5 Harvard CS-numbered courses.
+Honors,Computer Science Core,Harvard CS-numbered courses,core_subrequirement,6,6,,,,,,yes,At least 6 Harvard CS-numbered courses.
+Joint,Computer Science Core,Harvard CS-numbered courses,core_subrequirement,5,5,,,,,,yes,At least 5 Harvard CS-numbered courses.
+MBB,Computer Science Core,Harvard CS-numbered courses,core_subrequirement,5,5,,,,,,yes,At least 5 Harvard CS-numbered courses.
+Basic,Tutorial,CS91R supervised reading and research,optional,0,1,,,,CS91R,,no,"Optional; repeatable, but at most twice for academic credit and only one semester may count toward CS core."
+Honors,Tutorial,CS91R supervised reading and research,optional,0,1,,,,CS91R,,no,Optional; commonly used for thesis research; only one semester may count toward CS core.
+Joint,Thesis,Thesis combining CS and allied field,thesis_requirement,1,1,,,,,,yes,Required for joint concentration; read by both concentrations.
+MBB,MBB Courses,Neuroscience 80,course_requirement,1,1,,,,NEURO80,,yes,Required MBB course.
+MBB,MBB Courses,Approved MBB-related field course outside CS,course_requirement,1,1,,,,,,yes,Must be outside computer science.
+MBB,MBB Courses,Approved MBB junior tutorial,course_requirement,1,1,,,,,,yes,Required MBB junior tutorial.
+MBB,Thesis,Computationally-oriented MBB thesis,thesis_requirement,1,1,,,,,,yes,"Required thesis on a Mind, Brain, and Behavior-related topic."
+Basic; Honors; Joint; MBB,Policy,Pass/Fail and Sat/Unsat limit,policy,0,2,,,,,,yes,"No more than two courses used for CS requirements may be PA/FL or SUS. PA/FL or SUS tag credit is limited to Core CS, Programming 1, and Advanced CS."
+Basic; Honors; Joint; MBB,Policy,Approved substitutions,policy,,,,,,,,yes,Other courses may satisfy requirements with DUS approval through a Plan of Study. Cross-listed courses meet the same requirements as the COMPSCI-numbered version.
+Basic; Honors; Joint; MBB,Policy,Plan of Study,policy,,,,,,,,yes,Concentrators must file and keep an approved Plan of Study up to date; approval guarantees listed courses satisfy requirements.
