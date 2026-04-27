@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CS Degree Planner · Harvard College</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0E1F3D;
+  --navy2:#162B52;
+  --navy3:#1E3A6E;
+  --gold:#B8963E;
+  --gold-light:#F5ECD6;
+  --gold-mid:#E8D5A3;
+  --cream:#FAF7F2;
+  --cream2:#F3EEE6;
+  --white:#FFFFFF;
+  --ink:#1A1612;
+  --ink2:#3D3527;
+  --ink3:#6B5F4E;
+  --ink4:#9C8E7A;
+  --border:#E8E0D2;
+  --border2:#D6CBB8;
+  --shadow:0 2px 16px rgba(14,31,61,0.06);
+  --shadow-hover:0 6px 28px rgba(14,31,61,0.12);
+  --r:10px;
+  --r-lg:14px;
+
+  /* requirement colors */
+  --c-core:#4338CA;  --bg-core:#F0EFFF;  --bc-core:#C7C4F4;
+  --c-elec:#0369A1;  --bg-elec:#F0F9FF;  --bc-elec:#BAE6FD;
+  --c-math:#166534;  --bg-math:#F0FDF4;  --bc-math:#BBF7D0;
+  --c-gened:#92400E; --bg-gened:#FFFBEB; --bc-gened:#FDE68A;
+  --c-write:#9F1239; --bg-write:#FFF1F2; --bc-write:#FECDD3;
+  --c-lang:#5B21B6;  --bg-lang:#F5F3FF;  --bc-lang:#DDD6FE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--cream);color:var(--ink);display:flex;flex-direction:column}
+
+/* ── MASTHEAD ── */
+.masthead{background:var(--navy);color:var(--cream);flex-shrink:0}
+.masthead-inner{padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--navy3)}
+.mast-brand{display:flex;flex-direction:column;gap:1px}
+.mast-title{font-family:'Cormorant Garant',serif;font-size:20px;font-weight:600;letter-spacing:0.01em;color:var(--cream);line-height:1}
+.mast-sub{font-size:10px;font-weight:400;letter-spacing:0.16em;color:var(--gold-mid);text-transform:uppercase}
+.mast-stats{display:flex;align-items:center;gap:28px}
+.mast-stat{text-align:right}
+.mast-stat-val{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;color:var(--cream);line-height:1}
+.mast-stat-lbl{font-size:9px;letter-spacing:0.14em;color:var(--gold-mid);text-transform:uppercase;margin-top:2px}
+.mast-divider{width:1px;height:32px;background:var(--navy3)}
+
+/* ── PAGE NAV ── */
+.page-nav{background:var(--navy2);flex-shrink:0;padding:0 32px;display:flex;align-items:flex-end;gap:0}
+.pn-tab{padding:10px 20px;font-size:12px;font-weight:500;letter-spacing:0.04em;color:rgba(202,192,178,0.6);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.18s}
+.pn-tab:hover{color:rgba(202,192,178,0.9)}
+.pn-tab.active{color:var(--gold-mid);border-bottom-color:var(--gold)}
+/* ── BREADCRUMB ── */
+.breadcrumb{background:var(--cream2);border-bottom:1px solid var(--border);padding:0 32px;height:36px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.bc-link{font-size:12px;color:var(--gold);font-weight:500;cursor:pointer;letter-spacing:0.02em}
+.bc-link:hover{text-decoration:underline}
+.bc-sep{color:var(--ink4);font-size:12px}
+.bc-current{font-size:12px;color:var(--ink3);font-weight:500}
+
+/* ── SCREENS ── */
+.screens{flex:1;overflow:hidden;position:relative}
+.screen{position:absolute;inset:0;overflow-y:auto;display:none;padding:32px}
+.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.screen.active>*{animation:fadeUp 0.28s ease both}
+
+/* ── SCREEN 1: REQUIREMENTS ── */
+.req-page-head{margin-bottom:28px}
+.req-page-head h1{font-family:'Cormorant Garant',serif;font-size:34px;font-weight:600;color:var(--navy);letter-spacing:-0.01em;line-height:1.1}
+.req-page-head p{font-size:13px;color:var(--ink3);margin-top:6px;line-height:1.6;max-width:560px}
+.req-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:40px}
+.req-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 24px 20px;cursor:pointer;transition:box-shadow 0.2s,transform 0.2s,border-color 0.2s;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.req-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);border-color:var(--border2)}
+.req-card.complete{border-color:var(--gold-mid)}
+.req-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;opacity:0;transition:opacity 0.2s}
+.req-card:hover::after,.req-card.complete::after{opacity:1}
+.req-card[data-rid="CORE"]::after{background:var(--c-core)}
+.req-card[data-rid="ELEC"]::after{background:var(--c-elec)}
+.req-card[data-rid="MATH"]::after{background:var(--c-math)}
+.req-card[data-rid="GENED"]::after{background:var(--c-gened)}
+.req-card[data-rid="WRITE"]::after,.req-card[data-rid="LANG"]::after{background:var(--c-write)}
+.rc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.rc-icon-wrap{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.rc-complete-badge{font-size:10px;font-weight:600;letter-spacing:0.08em;background:var(--navy);color:var(--gold-mid);padding:3px 10px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
+.rc-title{font-family:'Cormorant Garant',serif;font-size:19px;font-weight:600;color:var(--navy);letter-spacing:0.01em;line-height:1.1}
+.rc-desc{font-size:12px;color:var(--ink3);line-height:1.65}
+.rc-progress{display:flex;flex-direction:column;gap:6px}
+.rc-prog-row{display:flex;align-items:center;justify-content:space-between}
+.rc-prog-frac{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500}
+.rc-prog-remaining{font-size:11px;color:var(--ink4)}
+.rc-bar{height:4px;background:var(--cream2);border-radius:2px;overflow:hidden}
+.rc-bar-fill{height:100%;border-radius:2px;transition:width 0.5s ease}
+.rc-cta{display:flex;align-items:center;justify-content:space-between;padding-top:4px;border-top:1px solid var(--border)}
+.rc-cta-text{font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--gold);text-transform:uppercase}
+.rc-cta-arrow{color:var(--gold);font-size:14px;transition:transform 0.15s}
+.req-card:hover .rc-cta-arrow{transform:translateX(3px)}
+
+/* plan mini */
+.plan-mini-title{font-family:'Cormorant Garant',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:12px;letter-spacing:0.01em}
+.plan-mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mini-sem{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px}
+.mini-sem-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.mini-sem-lbl{font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--ink4);text-transform:uppercase}
+.mini-sem-cr{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink4)}
+.mini-chip{padding:3px 7px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;margin-bottom:3px}
+.mini-empty{font-size:10px;color:var(--border2);font-style:italic;padding:4px 0}
+
+/* ── SCREEN 2: REQ DETAIL ── */
+.detail-header{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 28px;margin-bottom:24px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow)}
+.dh-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.dh-info{flex:1}
+.dh-title{font-family:'Cormorant Garant',serif;font-size:26px;font-weight:600;color:var(--navy);letter-spacing:0.01em;line-height:1.1}
+.dh-desc{font-size:12px;color:var(--ink3);margin-top:4px;line-height:1.6}
+.dh-progress{display:flex;flex-direction:column;gap:6px;min-width:160px}
+.dh-prog-frac{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;text-align:right}
+.dh-bar{height:5px;background:var(--cream2);border-radius:3px;overflow:hidden}
+.dh-bar-fill{height:100%;border-radius:3px;background:var(--navy);transition:width 0.4s}
+.dh-prog-label{font-size:10px;color:var(--ink4);text-align:right;letter-spacing:0.06em;text-transform:uppercase}
+.section-label{font-size:10px;font-weight:600;letter-spacing:0.14em;color:var(--ink4);text-transform:uppercase;margin-bottom:14px}
+.course-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.course-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:0;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.18s,border-color 0.18s;box-shadow:var(--shadow)}
+.course-card:hover{box-shadow:var(--shadow-hover);border-color:var(--border2)}
+.course-card.assigned{border-color:var(--gold-mid);background:linear-gradient(180deg,var(--white),var(--gold-light))}
+.cc-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
+.cc-meta{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.cc-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500}
+.cc-badge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;letter-spacing:0.06em;text-transform:uppercase}
+.cc-title{font-family:'Cormorant Garant',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.25}
+.cc-desc{font-size:11px;color:var(--ink3);line-height:1.65}
+.cc-credits{font-size:10px;font-weight:500;color:var(--ink4);letter-spacing:0.06em;text-transform:uppercase}
+/* semester picker */
+.cc-picker{border-top:1px solid var(--border);padding:14px 20px;background:var(--cream);display:flex;flex-direction:column;gap:10px}
+.cc-picker-label{font-size:9px;font-weight:600;letter-spacing:0.14em;color:var(--ink4);text-transform:uppercase}
+.cc-sem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.cc-sem-btn{padding:8px 4px;border-radius:7px;border:1px solid var(--border2);background:var(--white);font-size:10px;font-family:'IBM Plex Sans',sans-serif;cursor:pointer;color:var(--ink3);text-align:center;transition:all 0.14s;line-height:1.4;font-weight:500}
+.cc-sem-btn:hover{border-color:var(--navy);color:var(--navy);background:var(--cream2)}
+.cc-sem-btn.selected{background:var(--navy);border-color:var(--navy);color:var(--cream);font-weight:600}
+.cc-sem-btn.occupied{background:var(--gold-light);border-color:var(--gold-mid);color:var(--ink2);font-weight:600}
+.cc-footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.add-btn{flex:1;padding:9px 14px;border-radius:7px;border:none;background:var(--navy);color:var(--cream);font-size:11px;font-weight:600;font-family:'IBM Plex Sans',sans-serif;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.14s;display:none}
+.add-btn.show{display:block}
+.add-btn:hover{background:var(--navy3)}
+.remove-btn{padding:8px 12px;border-radius:7px;border:1px solid var(--border2);background:transparent;font-size:10px;font-weight:500;font-family:'IBM Plex Sans',sans-serif;cursor:pointer;color:var(--ink3);letter-spacing:0.04em;transition:all 0.14s}
+.remove-btn:hover{border-color:#EF4444;color:#EF4444;background:#FEF2F2}
+.assigned-label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--c-math)}
+.assigned-label .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* ── SCREEN 3: MY PLAN ── */
+.plan-year{margin-bottom:32px}
+.plan-year-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:14px}
+.plan-year-num{font-family:'Cormorant Garant',serif;font-size:28px;font-weight:600;color:var(--navy);letter-spacing:-0.01em;line-height:1}
+.plan-year-lbl{font-size:11px;font-weight:500;letter-spacing:0.1em;color:var(--ink4);text-transform:uppercase}
+.plan-year-cr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink4);margin-left:auto}
+.plan-year-hd::after{content:'';flex:1;height:1px;background:var(--border);margin-left:8px;align-self:center}
+.plan-sems{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plan-sem{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
+.plan-sem-hd{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--cream2)}
+.plan-sem-name{font-size:11px;font-weight:600;letter-spacing:0.08em;color:var(--ink2);text-transform:uppercase}
+.plan-sem-cr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink4)}
+.plan-sem-cr.hi{color:var(--c-gened)}.plan-sem-cr.ov{color:var(--c-write)}
+.plan-sem-body{padding:10px}
+.plan-course-row{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;margin-bottom:4px;transition:background 0.12s}
+.plan-course-row:hover{background:var(--cream)}
+.plan-course-row:hover .pcr-rm{opacity:1}
+.pcr-num{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;min-width:58px}
+.pcr-title{font-size:12px;color:var(--ink2);flex:1}
+.pcr-cr{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink4);flex-shrink:0}
+.pcr-rm{background:transparent;border:none;cursor:pointer;color:var(--ink4);font-size:14px;opacity:0;padding:0;line-height:1;transition:opacity 0.1s,color 0.1s;flex-shrink:0}
+.pcr-rm:hover{color:#EF4444}
+.plan-sem-empty{padding:14px 10px;font-size:11px;color:var(--border2);font-style:italic}
+
+/* PROGRESS BANNER */
+.progress-banner{background:var(--navy);border-radius:var(--r);padding:16px 24px;margin-bottom:28px;display:flex;align-items:center;gap:24px}
+.pb-item{text-align:center;flex:1}
+.pb-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;color:var(--cream);line-height:1}
+.pb-lbl{font-size:9px;letter-spacing:0.12em;color:var(--gold-mid);text-transform:uppercase;margin-top:3px}
+.pb-div{width:1px;height:36px;background:var(--navy3)}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink4)}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="mast-brand">
+      <div class="mast-title">CS Degree Planner</div>
+      <div class="mast-sub">Harvard College · Computer Science Concentration</div>
+    </div>
+    <div class="mast-stats">
+      <div class="mast-stat">
+        <div class="mast-stat-val" id="ms-reqs">0/6</div>
+        <div class="mast-stat-lbl">Areas Complete</div>
+      </div>
+      <div class="mast-divider"></div>
+      <div class="mast-stat">
+        <div class="mast-stat-val" id="ms-cr">0</div>
+        <div class="mast-stat-lbl">Credits Planned</div>
+      </div>
+      <div class="mast-divider"></div>
+      <div class="mast-stat">
+        <div class="mast-stat-val" id="ms-pl">0</div>
+        <div class="mast-stat-lbl">Courses Placed</div>
+      </div>
+    </div>
+  </div>
+  <!-- page nav -->
+  <div class="page-nav">
+    <div class="pn-tab active" id="pt-requirements" onclick="goScreen('requirements')">Requirements</div>
+    <div class="pn-tab" id="pt-plan" onclick="goScreen('plan')">My Four-Year Plan</div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb">
+  <span class="bc-current">All Requirements</span>
+</div>
+
+<!-- SCREENS -->
+<div class="screens">
+
+  <!-- REQUIREMENTS OVERVIEW -->
+  <div class="screen active" id="screen-requirements">
+    <div class="req-page-head">
+      <h1>Degree Requirements</h1>
+      <p>Select a requirement area below to browse eligible courses and assign them to your four-year plan. Work through each area to build a complete schedule.</p>
+    </div>
+    <div class="req-grid" id="req-grid"></div>
+    <div class="plan-mini-title">Your Plan So Far</div>
+    <div class="plan-mini-grid" id="plan-mini"></div>
+  </div>
+
+  <!-- REQUIREMENT DETAIL -->
+  <div class="screen" id="screen-detail">
+    <div id="detail-header"></div>
+    <div class="section-label">Courses that satisfy this requirement</div>
+    <div class="course-grid" id="course-grid"></div>
+  </div>
+
+  <!-- MY PLAN -->
+  <div class="screen" id="screen-plan">
+    <div class="req-page-head" style="margin-bottom:20px">
+      <h1>My Four-Year Plan</h1>
+      <p>Your assembled course schedule. Return to any requirement area to add or move courses.</p>
+    </div>
+    <div class="progress-banner" id="progress-banner"></div>
+    <div id="plan-body"></div>
+  </div>
+
+</div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────
+const COURSES=[
+  {id:'CS50', code:'CS 50',  title:'Introduction to Computer Science', credits:4,type:'cs-core',req:'CORE',desc:'The broad introduction to computer science for concentrators and non-concentrators alike. Problem sets span C, Python, SQL, and web development.'},
+  {id:'CS51', code:'CS 51',  title:'Abstraction and Design in Computation',credits:4,type:'cs-core',req:'CORE',desc:'Functional programming, abstraction, modularity, and types in OCaml. A foundational core requirement for all CS concentrators.'},
+  {id:'CS61', code:'CS 61',  title:'Systems Programming and Machine Organization',credits:4,type:'cs-core',req:'CORE',desc:'Machine organization, memory management, assembly language, and systems programming in C.'},
+  {id:'CS121',code:'CS 121', title:'Introduction to Theoretical Computer Science',credits:4,type:'cs-core',req:'CORE',desc:'Automata theory, computability, computational complexity, and NP-completeness. Rigorous and proof-heavy.'},
+  {id:'CS124',code:'CS 124', title:'Data Structures and Algorithms',    credits:4,type:'cs-core',req:'CORE',desc:'Algorithm design and analysis, graph algorithms, dynamic programming, hashing, and randomized algorithms.'},
+  {id:'CS109',code:'CS 109a',title:'Introduction to Data Science',       credits:4,type:'cs-elec',req:'ELEC',desc:'Exploratory data analysis, regression, classification, and clustering. Joint course with Statistics.'},
+  {id:'CS141',code:'CS 141', title:'Computing Hardware',                 credits:4,type:'cs-elec',req:'ELEC',desc:'Digital logic, processor design, memory hierarchy, and pipelining. Bridge between software and hardware.'},
+  {id:'CS145',code:'CS 145', title:'Networks',                           credits:4,type:'cs-elec',req:'ELEC',desc:'Internet architecture, the TCP/IP protocol stack, routing, and network security fundamentals.'},
+  {id:'CS161',code:'CS 161', title:'Operating Systems',                  credits:4,type:'cs-elec',req:'ELEC',desc:'Process management, threading, virtual memory, scheduling, and file systems.'},
+  {id:'CS165',code:'CS 165', title:'Data Systems',                       credits:4,type:'cs-elec',req:'ELEC',desc:'Database internals, storage engines, query optimization, and large-scale data management.'},
+  {id:'CS171',code:'CS 171', title:'Visualization',                      credits:4,type:'cs-elec',req:'ELEC',desc:'Principles and practice of data visualization, perception, and interactive graphics design.'},
+  {id:'CS179',code:'CS 179', title:'Design of Useful and Usable Interactive Systems',credits:4,type:'cs-elec',req:'ELEC',desc:'Human-computer interaction, usability research methods, and user-centered design practice.'},
+  {id:'CS181',code:'CS 181', title:'Machine Learning',                   credits:4,type:'cs-elec',req:'ELEC',desc:'Supervised, unsupervised, and reinforcement learning with theoretical grounding in generalization.'},
+  {id:'CS182',code:'CS 182', title:'Artificial Intelligence',            credits:4,type:'cs-elec',req:'ELEC',desc:'Search, planning, probabilistic inference, knowledge representation, and intelligent agent design.'},
+  {id:'CS263',code:'CS 263', title:'Systems Security',                   credits:4,type:'cs-elec',req:'ELEC',desc:'Cryptographic foundations, network security, software vulnerabilities, and system defenses.'},
+  {id:'CS91r',code:'CS 91r', title:'Supervised Research or Reading',     credits:4,type:'cs-elec',req:'ELEC',desc:'Independent research or supervised reading with a faculty sponsor. Credit for research engagement.'},
+  {id:'MA21A',code:'Math 21a',title:'Multivariable Calculus',            credits:4,type:'math',req:'MATH',desc:'Partial derivatives, multiple integrals, vector fields, line and surface integrals, Stokes and Divergence theorems.'},
+  {id:'MA21B',code:'Math 21b',title:'Linear Algebra and Differential Equations',credits:4,type:'math',req:'MATH',desc:'Linear systems, eigenvalues and eigenvectors, matrix decompositions, and ordinary differential equations.'},
+  {id:'ST110',code:'Stat 110',title:'Introduction to Probability',       credits:4,type:'math',req:'MATH',desc:'Combinatorics, random variables, distributions, conditional probability, Markov chains, and the central limit theorem.'},
+  {id:'GE1',code:'Gen Ed',title:'Aesthetics & Culture',                  credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the Aesthetics & Culture Gen Ed distribution requirement.'},
+  {id:'GE2',code:'Gen Ed',title:'Culture & Belief',                      credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the Culture & Belief distribution requirement.'},
+  {id:'GE3',code:'Gen Ed',title:'Ethics & Civics',                       credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the Ethics & Civics requirement.'},
+  {id:'GE4',code:'Gen Ed',title:'Histories, Societies, Individuals',     credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the Histories, Societies, Individuals requirement.'},
+  {id:'GE5',code:'Gen Ed',title:'Science & Technology in Society',       credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the Science & Technology in Society requirement.'},
+  {id:'GE6',code:'Gen Ed',title:'Societies of the World',                credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the Societies of the World requirement.'},
+  {id:'GE7',code:'Gen Ed',title:'United States in the World',            credits:4,type:'gened',req:'GENED',desc:'Any approved course satisfying the United States in the World requirement.'},
+  {id:'EX20',code:'Expos 20',title:'Expository Writing',                 credits:4,type:'writing',req:'WRITE',desc:'Required first-year writing course. Must be completed during the first year of study at Harvard College.'},
+  {id:'LG1',code:'Language',title:'Language Level I',                    credits:4,type:'writing',req:'LANG',desc:'First semester of language study toward the College language requirement.'},
+  {id:'LG2',code:'Language',title:'Language Level II',                   credits:4,type:'writing',req:'LANG',desc:'Second semester completing the College language requirement. May be waived by placement.'},
+];
+
+const REQS=[
+  {id:'CORE',  label:'CS Core',              need:5, icon:'✦', color:'#4338CA',bg:'#F0EFFF',bc:'#C7C4F4',tc:'#312E81',
+   desc:'Five foundational courses required of all Computer Science concentrators.'},
+  {id:'ELEC',  label:'CS Electives',         need:4, icon:'◈', color:'#0369A1',bg:'#F0F9FF',bc:'#BAE6FD',tc:'#075985',
+   desc:'Four elective courses at the 100-level or above in the CS department.'},
+  {id:'MATH',  label:'Math & Statistics',    need:3, icon:'∑', color:'#166534',bg:'#F0FDF4',bc:'#BBF7D0',tc:'#14532D',
+   desc:'Multivariable calculus, linear algebra, and probability — all three are required.'},
+  {id:'GENED', label:'Gen Ed (all 7 areas)', need:7, icon:'◉', color:'#92400E',bg:'#FFFBEB',bc:'#FDE68A',tc:'#78350F',
+   desc:'One course from each of Harvard\'s seven General Education distribution areas.'},
+  {id:'WRITE', label:'Expository Writing',   need:1, icon:'◎', color:'#9F1239',bg:'#FFF1F2',bc:'#FECDD3',tc:'#881337',
+   desc:'Expos 20 must be completed in the first year of study at Harvard College.'},
+  {id:'LANG',  label:'Language Requirement', need:2, icon:'◐', color:'#5B21B6',bg:'#F5F3FF',bc:'#DDD6FE',tc:'#4C1D95',
+   desc:'Two semesters of a language, or demonstrate proficiency through placement.'},
+];
+
+const SEMS=[
+  {id:'s1f',lbl:'Fall',yr:1,full:'Year 1 · Fall'},
+  {id:'s1s',lbl:'Spring',yr:1,full:'Year 1 · Spring'},
+  {id:'s2f',lbl:'Fall',yr:2,full:'Year 2 · Fall'},
+  {id:'s2s',lbl:'Spring',yr:2,full:'Year 2 · Spring'},
+  {id:'s3f',lbl:'Fall',yr:3,full:'Year 3 · Fall'},
+  {id:'s3s',lbl:'Spring',yr:3,full:'Year 3 · Spring'},
+  {id:'s4f',lbl:'Fall',yr:4,full:'Year 4 · Fall'},
+  {id:'s4s',lbl:'Spring',yr:4,full:'Year 4 · Spring'},
+];
+
+const TI={
+  'cs-core':{label:'CS CORE',bg:'#F0EFFF',tc:'#312E81',color:'#4338CA'},
+  'cs-elec':{label:'ELECTIVE',bg:'#F0F9FF',tc:'#075985',color:'#0369A1'},
+  'math':   {label:'MATH',   bg:'#F0FDF4',tc:'#14532D',color:'#166534'},
+  'gened':  {label:'GEN ED', bg:'#FFFBEB',tc:'#78350F',color:'#92400E'},
+  'writing':{label:'WRITING',bg:'#FFF1F2',tc:'#881337',color:'#9F1239'},
+};
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+const plan={s1f:[],s1s:[],s2f:[],s2s:[],s3f:[],s3s:[],s4f:[],s4s:[]};
+let currentReq=null;
+const pending={};
+
+const gc=id=>COURSES.find(c=>c.id===id);
+const placed=()=>Object.values(plan).flat();
+const semCr=sid=>plan[sid].reduce((s,id)=>(gc(id)?.credits||0)+s,0);
+const totCr=()=>placed().reduce((s,id)=>(gc(id)?.credits||0)+s,0);
+const reqMet=req=>placed().map(gc).filter(Boolean).filter(c=>c.req===req.id).length;
+const reqsDone=()=>REQS.filter(r=>reqMet(r)>=r.need).length;
+const courseInSem=id=>Object.entries(plan).find(([,cs])=>cs.includes(id))?.[0];
+
+function updateMasthead(){
+  document.getElementById('ms-reqs').textContent=reqsDone()+'/'+REQS.length;
+  document.getElementById('ms-cr').textContent=totCr();
+  document.getElementById('ms-pl').textContent=placed().length;
+}
+
+// ─── NAVIGATION ────────────────────────────────────────────────────────────
+function goScreen(s){
+  document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.pn-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('screen-'+s).classList.add('active');
+  document.getElementById('pt-'+s)?.classList.add('active');
+  setBc(s);
+  if(s==='requirements'){renderReqGrid();renderPlanMini();}
+  if(s==='plan'){renderPlan();}
+}
+
+function goDetail(rid){
+  currentReq=rid;
+  document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));
+  document.getElementById('screen-detail').classList.add('active');
+  document.querySelectorAll('.pn-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('pt-requirements').classList.add('active');
+  setBc('detail',rid);
+  renderDetail(rid);
+}
+
+function setBc(screen,rid){
+  const bc=document.getElementById('breadcrumb');
+  if(screen==='requirements'){
+    bc.innerHTML=`<span class="bc-current">All Requirements</span>`;
+  } else if(screen==='detail'){
+    const r=REQS.find(x=>x.id===rid);
+    bc.innerHTML=`<span class="bc-link" onclick="goScreen('requirements')">All Requirements</span>
+      <span class="bc-sep">›</span><span class="bc-current">${r.label}</span>`;
+  } else {
+    bc.innerHTML=`<span class="bc-current">My Four-Year Plan</span>`;
+  }
+}
+
+// ─── REQ GRID ──────────────────────────────────────────────────────────────
+function renderReqGrid(){
+  document.getElementById('req-grid').innerHTML=REQS.map((req,i)=>{
+    const met=reqMet(req),done=met>=req.need,pct=Math.min(100,Math.round(met/req.need*100));
+    return `<div class="req-card${done?' complete':''}" data-rid="${req.id}" onclick="goDetail('${req.id}')"
+      style="animation-delay:${i*0.05}s">
+      <div class="rc-header">
+        <div class="rc-icon-wrap" style="background:${req.bg};color:${req.color}">
+          <span style="font-size:18px">${req.icon}</span>
+        </div>
+        ${done?`<span class="rc-complete-badge">✓ Satisfied</span>`:''}
+      </div>
+      <div>
+        <div class="rc-title">${req.label}</div>
+        <div class="rc-desc" style="margin-top:5px">${req.desc}</div>
+      </div>
+      <div class="rc-progress">
+        <div class="rc-prog-row">
+          <span class="rc-prog-frac" style="color:${req.color}">${met} of ${req.need} courses</span>
+          <span class="rc-prog-remaining">${done?'Complete':req.need-met+' remaining'}</span>
+        </div>
+        <div class="rc-bar"><div class="rc-bar-fill" style="width:${pct}%;background:${req.color}"></div></div>
+      </div>
+      <div class="rc-cta">
+        <span class="rc-cta-text">Browse courses</span>
+        <span class="rc-cta-arrow" style="color:${req.color}">→</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderPlanMini(){
+  document.getElementById('plan-mini').innerHTML=SEMS.map(s=>{
+    const cs=plan[s.id].map(gc).filter(Boolean);
+    return `<div class="mini-sem">
+      <div class="mini-sem-hd">
+        <span class="mini-sem-lbl">Y${s.yr} ${s.lbl}</span>
+        <span class="mini-sem-cr">${semCr(s.id)}cr</span>
+      </div>
+      ${cs.map(c=>{const ti=TI[c.type]||{};return `<div class="mini-chip" style="background:${ti.bg};color:${ti.tc}">${c.code}</div>`;}).join('')||'<div class="mini-empty">Empty</div>'}
+    </div>`;
+  }).join('');
+}
+
+// ─── DETAIL ────────────────────────────────────────────────────────────────
+function renderDetail(rid){
+  const req=REQS.find(r=>r.id===rid);
+  const met=reqMet(req),pct=Math.min(100,Math.round(met/req.need*100));
+  document.getElementById('detail-header').innerHTML=`
+    <div class="detail-header">
+      <div class="dh-icon" style="background:${req.bg};color:${req.color};font-size:22px">${req.icon}</div>
+      <div class="dh-info">
+        <div class="dh-title">${req.label}</div>
+        <div class="dh-desc">${req.desc}</div>
+      </div>
+      <div class="dh-progress">
+        <div class="dh-prog-frac" style="color:${req.color}">${met} / ${req.need}</div>
+        <div class="dh-bar"><div class="dh-bar-fill" style="width:${pct}%;background:${req.color}"></div></div>
+        <div class="dh-prog-label">${met>=req.need?'Requirement satisfied':'Courses planned'}</div>
+      </div>
+    </div>`;
+
+  const courses=COURSES.filter(c=>c.req===rid);
+  document.getElementById('course-grid').innerHTML=courses.map(c=>{
+    const ti=TI[c.type]||{};
+    const assignedSid=courseInSem(c.id);
+    const assignedSem=assignedSid?SEMS.find(s=>s.id===assignedSid):null;
+    const pend=pending[c.id];
+    const semBtns=SEMS.map(s=>{
+      const isSel=pend===s.id;
+      const isOcc=assignedSid===s.id;
+      return `<button class="cc-sem-btn${isSel?' selected':''}${isOcc?' occupied':''}"
+        onclick="pickSem('${c.id}','${s.id}')" title="${s.full}">
+        <div style="font-weight:600">Y${s.yr}</div>
+        <div style="font-size:9px;opacity:0.8">${s.lbl}</div>
+      </button>`;
+    }).join('');
+    return `<div class="course-card${assignedSid?' assigned':''}" id="cc-${c.id}">
+      <div class="cc-body">
+        <div class="cc-meta">
+          <span class="cc-num" style="color:${ti.tc}">${c.code}</span>
+          <span class="cc-badge" style="background:${ti.bg};color:${ti.tc}">${ti.label}</span>
+        </div>
+        <div class="cc-title">${c.title}</div>
+        <div class="cc-desc">${c.desc}</div>
+        <div class="cc-credits">${c.credits} Credits</div>
+      </div>
+      <div class="cc-picker">
+        <div class="cc-picker-label">${assignedSid?'Assigned semester — click to reassign':'Select a semester'}</div>
+        <div class="cc-sem-grid">${semBtns}</div>
+        <div class="cc-footer">
+          ${assignedSid
+            ?`<span class="assigned-label"><span class="dot"></span>${assignedSem.full}</span>
+              <button class="remove-btn" onclick="removeCourse('${c.id}')">Remove</button>`
+            :`<button class="add-btn${pend?' show':''}" id="ab-${c.id}" onclick="confirmAdd('${c.id}')">
+                Add to ${pend?SEMS.find(s=>s.id===pend)?.full:'plan'} →
+              </button>`
+          }
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function pickSem(cid,sid){
+  if(courseInSem(cid)){
+    Object.keys(plan).forEach(k=>{plan[k]=plan[k].filter(x=>x!==cid)});
+    plan[sid].push(cid);delete pending[cid];
+  } else {
+    pending[cid]=sid;
+  }
+  updateMasthead();renderDetail(currentReq);renderPlanMini();
+}
+
+function confirmAdd(cid){
+  const sid=pending[cid];if(!sid)return;
+  Object.keys(plan).forEach(k=>{plan[k]=plan[k].filter(x=>x!==cid)});
+  plan[sid].push(cid);delete pending[cid];
+  updateMasthead();renderDetail(currentReq);renderPlanMini();
+}
+
+function removeCourse(cid){
+  Object.keys(plan).forEach(k=>{plan[k]=plan[k].filter(x=>x!==cid)});
+  delete pending[cid];
+  updateMasthead();renderDetail(currentReq);renderPlanMini();
+}
+
+// ─── MY PLAN ───────────────────────────────────────────────────────────────
+function renderPlan(){
+  // progress banner
+  const cr=totCr(),pl=placed().length,done=reqsDone();
+  document.getElementById('progress-banner').innerHTML=`
+    <div class="pb-item"><div class="pb-val">${cr}</div><div class="pb-lbl">Credits Planned</div></div>
+    <div class="pb-div"></div>
+    <div class="pb-item"><div class="pb-val">${pl}</div><div class="pb-lbl">Courses Placed</div></div>
+    <div class="pb-div"></div>
+    <div class="pb-item"><div class="pb-val">${done}/${REQS.length}</div><div class="pb-lbl">Req Areas Done</div></div>
+    <div class="pb-div"></div>
+    <div class="pb-item"><div class="pb-val">${Math.max(0,128-cr)}</div><div class="pb-lbl">Credits Remaining</div></div>`;
+
+  let html='';
+  [1,2,3,4].forEach(yr=>{
+    const fi=`s${yr}f`,si=`s${yr}s`,yrCr=semCr(fi)+semCr(si);
+    html+=`<div class="plan-year">
+      <div class="plan-year-hd">
+        <span class="plan-year-num">Year ${yr}</span>
+        <span class="plan-year-lbl">Academic Year</span>
+        <span class="plan-year-cr">${yrCr} credits</span>
+      </div>
+      <div class="plan-sems">${planSem(fi,'Fall')}${planSem(si,'Spring')}</div>
+    </div>`;
+  });
+  document.getElementById('plan-body').innerHTML=html;
+}
+
+function planSem(sid,lbl){
+  const cr=semCr(sid),crCls=cr>20?'ov':cr>16?'hi':'';
+  const cs=plan[sid].map(gc).filter(Boolean);
+  const rows=cs.map(c=>{
+    const ti=TI[c.type]||{};
+    return `<div class="plan-course-row" style="background:transparent">
+      <div style="width:8px;height:8px;border-radius:50%;background:${ti.color};flex-shrink:0"></div>
+      <span class="pcr-num" style="color:${ti.tc}">${c.code}</span>
+      <span class="pcr-title">${c.title}</span>
+      <span class="pcr-cr">${c.credits}cr</span>
+      <button class="pcr-rm" onclick="removePlanCourse('${c.id}','${sid}')">×</button>
+    </div>`;
+  }).join('');
+  return `<div class="plan-sem">
+    <div class="plan-sem-hd">
+      <span class="plan-sem-name">${lbl}</span>
+      <span class="plan-sem-cr ${crCls}">${cr} cr</span>
+    </div>
+    <div class="plan-sem-body">
+      ${rows||`<div class="plan-sem-empty">No courses assigned yet</div>`}
+    </div>
+  </div>`;
+}
+
+function removePlanCourse(id,sid){
+  plan[sid]=plan[sid].filter(x=>x!==id);
+  updateMasthead();renderPlan();
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+renderReqGrid();renderPlanMini();updateMasthead();
+</script>
+</body>
+</html>

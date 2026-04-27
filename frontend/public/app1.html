@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CS Planner — Horizon</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --sidebar-w:220px;
+  --orange:#F97316;
+  --orange-light:#FFF7ED;
+  --orange-mid:#FFEDD5;
+  --orange-dark:#C2410C;
+  --bg:#F1F5F9;
+  --white:#FFFFFF;
+  --slate:#0F172A;
+  --slate2:#334155;
+  --slate3:#64748B;
+  --slate4:#94A3B8;
+  --slate5:#CBD5E1;
+  --slate6:#E2E8F0;
+  --slate7:#F1F5F9;
+  --border:#E2E8F0;
+  --chip-h:34px;
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--slate);height:100vh;display:flex;overflow:hidden;font-size:14px}
+aside{width:var(--sidebar-w);background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.aside-brand{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.brand-logo{display:flex;align-items:center;gap:10px}
+.brand-icon{width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:600;flex-shrink:0}
+.brand-text{font-size:13px;font-weight:600;color:var(--slate);line-height:1.2}
+.brand-sub{font-size:10px;color:var(--slate4);font-weight:400}
+.aside-nav{padding:12px 10px;flex:1;display:flex;flex-direction:column;gap:2px}
+.nav-section-label{font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--slate4);text-transform:uppercase;padding:10px 8px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius);cursor:pointer;transition:all 0.12s;user-select:none;color:var(--slate3);font-weight:500;font-size:13px}
+.nav-item:hover{background:var(--slate7);color:var(--slate)}
+.nav-item.active{background:var(--orange-light);color:var(--orange-dark);font-weight:600}
+.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--slate6);color:var(--slate3);padding:2px 6px;border-radius:20px}
+.nav-item.active .nav-badge{background:var(--orange-mid);color:var(--orange-dark)}
+.aside-footer{padding:14px;border-top:1px solid var(--border)}
+.credit-meter{background:var(--slate7);border-radius:8px;padding:12px}
+.cm-label{font-size:10px;font-weight:600;letter-spacing:0.08em;color:var(--slate4);text-transform:uppercase;margin-bottom:6px}
+.cm-bar{height:6px;border-radius:3px;background:var(--slate6);overflow:hidden;margin-bottom:5px}
+.cm-fill{height:100%;border-radius:3px;background:var(--orange);transition:width 0.4s}
+.cm-vals{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--slate3)}
+main{flex:1;display:flex;overflow:hidden}
+.page{display:none;flex:1;flex-direction:column;overflow:hidden}
+.page.active{display:flex}
+.pg-head{padding:18px 24px 0;flex-shrink:0}
+.pg-title{font-size:20px;font-weight:600;color:var(--slate);letter-spacing:-0.02em}
+.pg-sub{font-size:13px;color:var(--slate3);margin-top:3px}
+.pg-head-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+
+/* DASHBOARD */
+#pg-dashboard{overflow:auto;padding:18px 24px 24px;gap:16px}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:3px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);border-radius:12px 12px 0 0}
+.stat-card.blue::before{background:#3B82F6}.stat-card.green::before{background:#22C55E}.stat-card.purple::before{background:#A855F7}
+.stat-label{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--slate4);text-transform:uppercase}
+.stat-val{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:500;color:var(--slate);line-height:1.1;margin-top:2px}
+.stat-sub{font-size:11px;color:var(--slate4)}
+.dash-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dash-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.dash-card-title{font-size:11px;font-weight:600;letter-spacing:0.08em;color:var(--slate4);text-transform:uppercase}
+.req-strip{display:flex;flex-direction:column;gap:7px}
+.req-row{display:flex;align-items:center;gap:10px}
+.req-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.req-name{font-size:12px;color:var(--slate2);flex:1}
+.req-bar-wrap{width:80px;height:6px;background:var(--slate6);border-radius:3px;overflow:hidden}
+.req-bar-fill{height:100%;border-radius:3px;transition:width 0.4s}
+.req-prog{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--slate4);min-width:28px;text-align:right}
+.req-check{font-size:11px;font-weight:600;min-width:16px;text-align:right}
+
+/* PLANNER */
+#pg-planner{overflow:hidden}
+.planner-layout{display:flex;flex:1;overflow:hidden}
+.course-panel{width:240px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.cp-head{padding:12px 12px 8px;border-bottom:1px solid var(--border);flex-shrink:0}
+.cp-head h3{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--slate4);text-transform:uppercase;margin-bottom:7px}
+.cp-search{position:relative}
+.cp-search input{width:100%;background:var(--slate7);border:1px solid var(--border);border-radius:8px;padding:6px 10px 6px 28px;font-size:12px;font-family:'Poppins',sans-serif;color:var(--slate);outline:none}
+.cp-search input:focus{border-color:var(--orange)}
+.cp-si{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--slate4);font-size:13px}
+.cp-body{flex:1;overflow-y:auto;padding:4px 0}
+.cp-cat-hd{padding:7px 12px 3px;font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--slate4);text-transform:uppercase;display:flex;justify-content:space-between}
+.cp-cat-n{font-family:'JetBrains Mono',monospace;color:var(--slate5)}
+.b-chip{margin:2px 7px;padding:0 8px;height:var(--chip-h);border-radius:8px;display:flex;align-items:center;gap:7px;cursor:grab;border:1px solid transparent;user-select:none;transition:opacity 0.15s}
+.b-chip:active{cursor:grabbing}
+.b-chip.placed{opacity:0.25;pointer-events:none}
+.b-chip.cs-core{background:#F5F3FF;border-color:#DDD6FE}
+.b-chip.cs-elec{background:#EFF6FF;border-color:#BFDBFE}
+.b-chip.math{background:#F0FDF4;border-color:#BBF7D0}
+.b-chip.gened{background:#FFF7ED;border-color:#FED7AA}
+.bcode{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.cs-core .bcode{color:#5B21B6}.cs-elec .bcode{color:#1D4ED8}.math .bcode{color:#166534}.gened .bcode{color:#C2410C}
+.btitle{font-size:11px;color:var(--slate2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bcr{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--slate4);flex-shrink:0}
+.drop-zone{margin:8px;border:1.5px dashed var(--slate5);border-radius:8px;padding:8px;text-align:center;font-size:11px;color:var(--slate4);display:none;transition:all 0.15s;flex-shrink:0}
+.drop-zone.show{display:block}
+.drop-zone.over{border-color:#EF4444;color:#EF4444;background:#FEF2F2}
+.plan-area{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.yr-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.yr-card-hd{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--slate7)}
+.yr-card-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;background:var(--orange);color:white;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.yr-card-title{font-size:12px;font-weight:600;color:var(--slate2)}
+.yr-card-cr{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate4);margin-left:auto}
+.yr-sems{display:grid;grid-template-columns:1fr 1fr}
+.sem-col{border-right:1px solid var(--border);padding:10px;min-height:110px;display:flex;flex-direction:column;gap:4px;transition:background 0.12s}
+.sem-col:last-child{border-right:none}
+.sem-col.drag-over{background:#FFF7ED;outline:2px solid var(--orange);outline-offset:-1px}
+.sem-lbl{font-size:9px;font-weight:600;letter-spacing:0.1em;color:var(--slate4);text-transform:uppercase;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+.sem-cr-badge{font-family:'JetBrains Mono',monospace;font-size:9px}
+.sem-cr-badge.hi{color:#F59E0B}.sem-cr-badge.ov{color:#EF4444}
+.p-chip{height:var(--chip-h);border-radius:8px;display:flex;align-items:center;gap:7px;padding:0 8px;cursor:grab;border:1px solid transparent;user-select:none}
+.p-chip:active{cursor:grabbing}
+.p-chip.cs-core{background:#F5F3FF;border-color:#DDD6FE}.p-chip.cs-elec{background:#EFF6FF;border-color:#BFDBFE}.p-chip.math{background:#F0FDF4;border-color:#BBF7D0}.p-chip.gened{background:#FFF7ED;border-color:#FED7AA}
+.p-chip .bcode{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;flex-shrink:0}
+.p-chip.cs-core .bcode{color:#5B21B6}.p-chip.cs-elec .bcode{color:#1D4ED8}.p-chip.math .bcode{color:#166534}.p-chip.gened .bcode{color:#C2410C}
+.p-chip .btitle{font-size:11px;color:var(--slate2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.xbtn{width:16px;height:16px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:var(--slate4);font-size:13px;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;flex-shrink:0;line-height:1}
+.p-chip:hover .xbtn{opacity:1}
+.xbtn:hover{background:#FEE2E2;color:#EF4444}
+.drp-empty{font-size:11px;color:var(--slate5);font-style:italic;padding:6px 2px}
+
+/* COURSES */
+#pg-courses{overflow:hidden}
+.courses-wrap{display:flex;flex:1;overflow:hidden}
+.courses-list-col{width:360px;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.courses-toolbar{padding:12px;background:var(--white);border-bottom:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.courses-toolbar input{width:100%;background:var(--slate7);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;font-family:'Poppins',sans-serif;color:var(--slate);outline:none}
+.courses-toolbar input:focus{border-color:var(--orange)}
+.courses-toolbar input::placeholder{color:var(--slate4)}
+.type-filters{display:flex;gap:5px;flex-wrap:wrap}
+.tf-btn{padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;font-size:11px;font-family:'Poppins',sans-serif;cursor:pointer;color:var(--slate3);font-weight:500;transition:all 0.12s;white-space:nowrap}
+.tf-btn.on{border-color:var(--orange);background:var(--orange-light);color:var(--orange-dark);font-weight:600}
+.course-scroll{flex:1;overflow-y:auto}
+.course-item{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:background 0.1s}
+.course-item:hover{background:var(--slate7)}
+.course-item.selected{background:var(--orange-light)}
+.ci-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;letter-spacing:0.04em;flex-shrink:0}
+.ci-code{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;min-width:56px;flex-shrink:0}
+.ci-title{font-size:12px;color:var(--slate);flex:1;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ci-cr{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--slate4);flex-shrink:0}
+.ci-placed{font-size:11px;flex-shrink:0;font-weight:600;color:#16A34A}
+.course-detail{flex:1;background:var(--white);display:flex;flex-direction:column;overflow:hidden}
+.cd-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--slate5)}
+.cd-empty-icon{font-size:32px}
+.cd-content{flex:1;padding:24px;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
+.cd-type-badge{align-self:flex-start;font-size:10px;font-weight:600;padding:4px 10px;border-radius:6px;letter-spacing:0.04em}
+.cd-meta-code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--slate3)}
+.cd-title{font-size:18px;font-weight:600;color:var(--slate);line-height:1.3;letter-spacing:-0.01em}
+.cd-desc{font-size:13px;color:var(--slate2);line-height:1.7}
+.cd-attrs{background:var(--slate7);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:7px}
+.cd-attr-row{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.cd-attr-lbl{color:var(--slate3);font-weight:500}
+.cd-attr-val{font-family:'JetBrains Mono',monospace;color:var(--slate2)}
+.cd-sem-section{display:flex;flex-direction:column;gap:8px}
+.cd-sem-label{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--slate4);text-transform:uppercase}
+.cd-sem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.cd-sem-btn{padding:7px 4px;border-radius:8px;border:1px solid var(--border);background:transparent;font-size:10px;font-family:'Poppins',sans-serif;cursor:pointer;color:var(--slate2);text-align:center;transition:all 0.12s;line-height:1.4}
+.cd-sem-btn:hover{border-color:var(--orange);color:var(--orange-dark)}
+.cd-sem-btn.placed{background:var(--orange-light);border-color:var(--orange);color:var(--orange-dark);font-weight:600}
+
+/* REQUIREMENTS */
+#pg-requirements{overflow:hidden}
+.req-wrap{display:flex;flex:1;overflow:hidden}
+.req-cards{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.req-big-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.rbc-header{padding:14px 16px;display:flex;align-items:center;gap:12px}
+.rbc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.rbc-info{flex:1}
+.rbc-title{font-size:13px;font-weight:600;color:var(--slate)}
+.rbc-sub{font-size:11px;color:var(--slate3);margin-top:2px}
+.rbc-pct{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500}
+.rbc-bar{height:5px;background:var(--slate7);margin:0 16px}
+.rbc-bar-fill{height:100%;transition:width 0.4s}
+.rbc-courses{padding:10px 16px 14px;display:flex;flex-wrap:wrap;gap:6px}
+.rbc-chip{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;display:flex;align-items:center;gap:4px;border:1px solid transparent}
+.rbc-chip.need{background:transparent!important;opacity:0.4;border-style:dashed}
+.req-side{width:240px;border-left:1px solid var(--border);background:var(--white);padding:18px;display:flex;flex-direction:column;gap:14px;overflow:auto;flex-shrink:0}
+.req-side-title{font-size:10px;font-weight:600;letter-spacing:0.1em;color:var(--slate4);text-transform:uppercase}
+.summary-rows{display:flex;flex-direction:column;gap:6px}
+.sum-row{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--slate7);border-radius:8px}
+.sum-lbl{font-size:12px;color:var(--slate2)}
+.sum-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--slate)}
+.remaining-note{background:var(--orange-light);border:1px solid var(--orange-mid);border-radius:8px;padding:10px;font-size:12px;color:var(--orange-dark);line-height:1.5}
+
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--slate5);border-radius:2px}
+.dragging{opacity:0.3}
+#loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--slate4);z-index:100}
+</style>
+</head>
+<body>
+<div id="loading">Loading course data…</div>
+
+<aside>
+  <div class="aside-brand">
+    <div class="brand-logo">
+      <div class="brand-icon">CS</div>
+      <div>
+        <div class="brand-text">Four-Year Planner</div>
+        <div class="brand-sub">Harvard CS · Basic Plan</div>
+      </div>
+    </div>
+  </div>
+  <nav class="aside-nav">
+    <div class="nav-section-label">Navigation</div>
+    <div class="nav-item active" id="ni-dashboard" onclick="goPage('dashboard')"><span class="nav-icon">⊙</span> Dashboard</div>
+    <div class="nav-item" id="ni-planner" onclick="goPage('planner')"><span class="nav-icon">⊞</span> Four-Year Plan</div>
+    <div class="nav-item" id="ni-courses" onclick="goPage('courses')">
+      <span class="nav-icon">⊕</span> Course Library
+      <span class="nav-badge" id="nb-courses">—</span>
+    </div>
+    <div class="nav-item" id="ni-requirements" onclick="goPage('requirements')">
+      <span class="nav-icon">◎</span> Requirements
+      <span class="nav-badge" id="nb-reqs">0/5</span>
+    </div>
+  </nav>
+  <div class="aside-footer">
+    <div class="credit-meter">
+      <div class="cm-label">Credit Progress</div>
+      <div class="cm-bar"><div class="cm-fill" id="cm-fill" style="width:0%"></div></div>
+      <div class="cm-vals"><span id="cm-placed">0</span> / 128 credits</div>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <div class="page active" id="pg-dashboard">
+    <div class="pg-head pg-head-row" style="padding-bottom:16px">
+      <div><div class="pg-title">Dashboard</div><div class="pg-sub">Your CS degree at a glance</div></div>
+    </div>
+    <div class="dash-stats" id="dash-stats"></div>
+    <div class="dash-row" style="padding:0 24px 24px" id="dash-row"></div>
+  </div>
+
+  <div class="page" id="pg-planner">
+    <div class="planner-layout">
+      <div class="course-panel">
+        <div class="cp-head">
+          <h3>Course Bank</h3>
+          <div class="cp-search">
+            <span class="cp-si">🔍</span>
+            <input id="bq" type="text" placeholder="Search courses…" oninput="renderBank()"/>
+          </div>
+        </div>
+        <div class="cp-body" id="cp-body"></div>
+        <div class="drop-zone" id="drop-zone"
+          ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">✕ Drop to remove</div>
+      </div>
+      <div class="plan-area" id="plan-area"></div>
+    </div>
+  </div>
+
+  <div class="page" id="pg-courses">
+    <div class="courses-wrap">
+      <div class="courses-list-col">
+        <div class="courses-toolbar">
+          <input id="cq" type="text" placeholder="Search by title or code…" oninput="renderCourseList()"/>
+          <div class="type-filters" id="type-filters"></div>
+        </div>
+        <div class="course-scroll" id="course-scroll"></div>
+      </div>
+      <div class="course-detail" id="course-detail">
+        <div class="cd-empty-state">
+          <div class="cd-empty-icon">⊕</div>
+          <div style="font-size:13px;color:var(--slate4)">Select a course to view details</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="pg-requirements">
+    <div class="req-wrap">
+      <div class="req-cards" id="req-cards"></div>
+      <div class="req-side" id="req-side"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const TI={
+  'cs-core':{label:'CS CORE', bg:'#F5F3FF',bc:'#DDD6FE',tc:'#5B21B6',color:'#7C3AED'},
+  'cs-elec':{label:'ELECTIVE',bg:'#EFF6FF',bc:'#BFDBFE',tc:'#1D4ED8',color:'#3B82F6'},
+  'math':   {label:'MATH',    bg:'#F0FDF4',bc:'#BBF7D0',tc:'#166534',color:'#22C55E'},
+  'gened':  {label:'GEN ED',  bg:'#FFF7ED',bc:'#FED7AA',tc:'#C2410C',color:'#F97316'},
+};
+const REQS=[
+  {id:'corecs',   label:'CS Core',          need:4, color:'#7C3AED',bg:'#F5F3FF',icon:'📐'},
+  {id:'advancedcs',label:'Advanced CS',     need:4, color:'#3B82F6',bg:'#EFF6FF',icon:'⚗'},
+  {id:'math',     label:'Math & Statistics',need:3, color:'#16A34A',bg:'#F0FDF4',icon:'∑'},
+  {id:'gened',    label:'Gen Ed',           need:4, color:'#F97316',bg:'#FFF7ED',icon:'🌐'},
+];
+const SEMS=[
+  {id:'s1f',lbl:'Fall',yr:1},{id:'s1s',lbl:'Spring',yr:1},
+  {id:'s2f',lbl:'Fall',yr:2},{id:'s2s',lbl:'Spring',yr:2},
+  {id:'s3f',lbl:'Fall',yr:3},{id:'s3s',lbl:'Spring',yr:3},
+  {id:'s4f',lbl:'Fall',yr:4},{id:'s4s',lbl:'Spring',yr:4},
+];
+
+let COURSES=[];
+const plan={s1f:[],s1s:[],s2f:[],s2s:[],s3f:[],s3s:[],s4f:[],s4s:[]};
+let dragId=null,dragFrom=null,cfType='ALL',selCourse=null;
+
+function courseType(c){
+  if(c.is_corecs && !c.is_advancedcs) return 'cs-core';
+  if(c.is_advancedcs) return 'cs-elec';
+  if(c.is_linearalgebra||c.is_probability||c.is_discretemath) return 'math';
+  return 'gened';
+}
+
+function courseReq(c){
+  if(c.is_corecs && !c.is_advancedcs) return 'corecs';
+  if(c.is_advancedcs) return 'advancedcs';
+  if(c.is_linearalgebra||c.is_probability||c.is_discretemath) return 'math';
+  return 'gened';
+}
+
+async function loadData(){
+  const [csData, genedData] = await Promise.all([
+    fetch('/data/courses.json').then(r=>r.json()),
+    fetch('/data/gened_courses.json').then(r=>r.json()),
+  ]);
+
+  // CS courses
+  const cs = csData.map(c=>({
+    id: c.course_number,
+    code: c.course_number,
+    title: c.title,
+    credits: parseInt(c.credits)||4,
+    type: courseType(c),
+    req: courseReq(c),
+    desc: c.description||'No description available.',
+    instructor: c.instructor||'',
+    meeting_time: c.meeting_time||'',
+  })).filter(c=>c.title);
+
+  // GenEd courses (sample 20 for manageability)
+  const gened = genedData.slice(0,20).map(c=>({
+    id: c.course_number,
+    code: c.course_number,
+    title: c.title,
+    credits: parseInt(c.credits)||4,
+    type: 'gened',
+    req: 'gened',
+    desc: c.description||'No description available.',
+    instructor: c.instructor||'',
+    meeting_time: c.meeting_time||'',
+  }));
+
+  COURSES = [...cs, ...gened];
+  document.getElementById('loading').style.display='none';
+  document.getElementById('nb-courses').textContent=COURSES.length;
+  goPage('dashboard');
+}
+
+const gc=id=>COURSES.find(c=>c.id===id);
+const placed=()=>Object.values(plan).flat();
+const semCr=sid=>plan[sid].reduce((s,id)=>(gc(id)?.credits||0)+s,0);
+const totCr=()=>placed().reduce((s,id)=>(gc(id)?.credits||0)+s,0);
+const reqMet=req=>placed().map(gc).filter(Boolean).filter(c=>c.req===req.id).length;
+const reqsDone=()=>REQS.filter(r=>reqMet(r)>=r.need).length;
+
+function updateSidebarStats(){
+  const cr=totCr();
+  document.getElementById('cm-fill').style.width=Math.min(100,cr/128*100)+'%';
+  document.getElementById('cm-placed').textContent=cr;
+  document.getElementById('nb-reqs').textContent=reqsDone()+'/'+REQS.length;
+}
+
+function goPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('pg-'+p).classList.add('active');
+  document.getElementById('ni-'+p).classList.add('active');
+  if(p==='dashboard') renderDashboard();
+  if(p==='planner'){renderBank();renderPlanArea();}
+  if(p==='courses'){renderTypeFilters();renderCourseList();}
+  if(p==='requirements'){renderReqCards();renderReqSide();}
+  updateSidebarStats();
+}
+
+function renderDashboard(){
+  const cr=totCr(),pl=placed().length,done=reqsDone();
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Credits Planned</div><div class="stat-val">${cr}</div><div class="stat-sub">of 128 required</div></div>
+    <div class="stat-card blue"><div class="stat-label">Courses Placed</div><div class="stat-val">${pl}</div><div class="stat-sub">of ${COURSES.length} available</div></div>
+    <div class="stat-card green"><div class="stat-label">Reqs Satisfied</div><div class="stat-val">${done}</div><div class="stat-sub">of ${REQS.length} areas</div></div>
+    <div class="stat-card purple"><div class="stat-label">Remaining</div><div class="stat-val">${Math.max(0,128-cr)}</div><div class="stat-sub">credits to go</div></div>`;
+
+  const reqRows=REQS.map(r=>{
+    const m=reqMet(r),d=m>=r.need,pct=Math.min(100,Math.round(m/r.need*100));
+    return `<div class="req-row">
+      <span class="req-dot" style="background:${d?r.color:'var(--slate5)'}"></span>
+      <span class="req-name">${r.label}</span>
+      <div class="req-bar-wrap"><div class="req-bar-fill" style="width:${pct}%;background:${r.color}"></div></div>
+      ${d?`<span class="req-check" style="color:${r.color}">✓</span>`:`<span class="req-prog">${m}/${r.need}</span>`}
+    </div>`;
+  }).join('');
+
+  const yrRows=[1,2,3,4].map(yr=>{
+    const f=semCr(`s${yr}f`),s=semCr(`s${yr}s`),tot=f+s;
+    return `<div class="req-row">
+      <span class="req-name" style="font-size:11px;min-width:44px">Year ${yr}</span>
+      <div class="req-bar-wrap" style="width:120px"><div class="req-bar-fill" style="width:${Math.min(100,tot/32*100)}%;background:var(--orange)"></div></div>
+      <span class="req-prog">${tot} cr</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('dash-row').innerHTML=`
+    <div class="dash-card">
+      <div class="dash-card-title">Requirement Progress</div>
+      <div class="req-strip">${reqRows}</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-title">Credit Load by Year</div>
+      <div class="req-strip">${yrRows}</div>
+    </div>`;
+}
+
+function renderBank(){
+  const q=(document.getElementById('bq')||{}).value?.toLowerCase()||'';
+  const pl=placed();
+  const cats=[
+    {label:'CS Core',types:['cs-core']},
+    {label:'CS Electives',types:['cs-elec']},
+    {label:'Math & Stats',types:['math']},
+    {label:'Gen Ed',types:['gened']},
+  ];
+  let html='';
+  cats.forEach(cat=>{
+    const cs=COURSES.filter(c=>cat.types.includes(c.type)&&(!q||c.title.toLowerCase().includes(q)||c.code.toLowerCase().includes(q)));
+    if(!cs.length)return;
+    const av=cs.filter(c=>!pl.includes(c.id)).length;
+    html+=`<div class="cp-cat-hd">${cat.label}<span class="cp-cat-n">${av}/${cs.length}</span></div>`;
+    cs.forEach(c=>{
+      html+=`<div class="b-chip ${c.type}${pl.includes(c.id)?' placed':''}" draggable="true"
+        ondragstart="dsBnk(event,'${c.id}')" ondragend="deEnd(event)" title="${c.title}">
+        <span class="bcode">${c.code}</span>
+        <span class="btitle">${c.title}</span>
+        <span class="bcr">${c.credits}cr</span>
+      </div>`;
+    });
+  });
+  document.getElementById('cp-body').innerHTML=html;
+}
+
+function renderPlanArea(){
+  let html='';
+  [1,2,3,4].forEach(yr=>{
+    const fi=`s${yr}f`,si=`s${yr}s`,yrCr=semCr(fi)+semCr(si);
+    html+=`<div class="yr-card">
+      <div class="yr-card-hd">
+        <div class="yr-card-num">${yr}</div>
+        <span class="yr-card-title">Year ${yr}</span>
+        <span class="yr-card-cr">${yrCr} cr</span>
+      </div>
+      <div class="yr-sems">${semColHTML(fi,'Fall')}${semColHTML(si,'Spring')}</div>
+    </div>`;
+  });
+  document.getElementById('plan-area').innerHTML=html;
+}
+
+function semColHTML(sid,lbl){
+  const cr=semCr(sid),crCls=cr>20?'ov':cr>16?'hi':'';
+  const cs=plan[sid].map(gc).filter(Boolean);
+  const chips=cs.length
+    ?cs.map(c=>`<div class="p-chip ${c.type}" draggable="true"
+        ondragstart="dsSem(event,'${c.id}','${sid}')" ondragend="deEnd(event)">
+        <span class="bcode">${c.code}</span>
+        <span class="btitle">${c.title}</span>
+        <button class="xbtn" onclick="event.stopPropagation();rmCourse('${c.id}','${sid}')">×</button>
+      </div>`).join('')
+    :`<div class="drp-empty">Drop courses here</div>`;
+  return `<div class="sem-col" id="sc-${sid}"
+    ondragover="scOver(event,'${sid}')" ondragleave="scLeave('${sid}')" ondrop="scDrop(event,'${sid}')">
+    <div class="sem-lbl"><span>${lbl}</span><span class="sem-cr-badge ${crCls}">${cr} cr</span></div>
+    ${chips}
+  </div>`;
+}
+
+const TYPE_FILTERS=[{id:'ALL',label:'All'},{id:'cs-core',label:'CS Core'},{id:'cs-elec',label:'Electives'},{id:'math',label:'Math'},{id:'gened',label:'Gen Ed'}];
+function renderTypeFilters(){
+  document.getElementById('type-filters').innerHTML=TYPE_FILTERS.map(f=>
+    `<button class="tf-btn${cfType===f.id?' on':''}" onclick="setCfType('${f.id}')">${f.label}</button>`).join('');
+}
+function setCfType(t){cfType=t;renderTypeFilters();renderCourseList();}
+
+function renderCourseList(){
+  const q=(document.getElementById('cq')||{}).value?.toLowerCase()||'';
+  const pl=placed();
+  const cs=COURSES.filter(c=>{
+    const mt=cfType==='ALL'||c.type===cfType;
+    const mq=!q||c.title.toLowerCase().includes(q)||c.code.toLowerCase().includes(q);
+    return mt&&mq;
+  });
+  document.getElementById('course-scroll').innerHTML=cs.map(c=>{
+    const ti=TI[c.type]||{};
+    const isp=pl.includes(c.id);
+    return `<div class="course-item${selCourse?.id===c.id?' selected':''}" onclick="selectCourse('${c.id}')">
+      <span class="ci-badge" style="background:${ti.bg};color:${ti.tc}">${ti.label}</span>
+      <span class="ci-code" style="color:${ti.tc}">${c.code}</span>
+      <span class="ci-title">${c.title}</span>
+      <span class="ci-cr">${c.credits}cr</span>
+      ${isp?`<span class="ci-placed">✓</span>`:''}
+    </div>`;
+  }).join('')||'<div style="padding:20px;text-align:center;font-size:13px;color:var(--slate4)">No courses found</div>';
+}
+
+function selectCourse(id){selCourse=gc(id);renderCourseList();renderCourseDetail();}
+
+function renderCourseDetail(){
+  const c=selCourse;
+  if(!c){document.getElementById('course-detail').innerHTML='<div class="cd-empty-state"><div class="cd-empty-icon">⊕</div><div style="font-size:13px;color:var(--slate4)">Select a course</div></div>';return;}
+  const ti=TI[c.type]||{};
+  const isp=placed().includes(c.id);
+  const semBtns=SEMS.map(s=>{
+    const inS=plan[s.id].includes(c.id);
+    return `<button class="cd-sem-btn${inS?' placed':''}" onclick="toggleSem('${c.id}','${s.id}')">
+      <div>Y${s.yr}</div><div>${s.lbl}</div>${inS?'<div>✓</div>':''}
+    </button>`;
+  }).join('');
+  document.getElementById('course-detail').innerHTML=`<div class="cd-content">
+    <span class="cd-type-badge" style="background:${ti.bg};color:${ti.tc}">${ti.label}</span>
+    <div><div class="cd-meta-code">${c.code}</div><div class="cd-title" style="margin-top:4px">${c.title}</div></div>
+    ${c.instructor?`<div style="font-size:12px;color:var(--slate3)">👤 ${c.instructor}</div>`:''}
+    ${c.meeting_time?`<div style="font-size:12px;color:var(--slate3)">🕐 ${c.meeting_time}</div>`:''}
+    <div class="cd-desc">${c.desc.slice(0,600)}${c.desc.length>600?'…':''}</div>
+    <div class="cd-attrs">
+      <div class="cd-attr-row"><span class="cd-attr-lbl">Credits</span><span class="cd-attr-val">${c.credits}</span></div>
+      <div class="cd-attr-row"><span class="cd-attr-lbl">Category</span><span class="cd-attr-val">${ti.label}</span></div>
+      <div class="cd-attr-row"><span class="cd-attr-lbl">Status</span><span class="cd-attr-val" style="color:${isp?'#16A34A':'var(--slate4)'}">${isp?'Planned ✓':'Not placed'}</span></div>
+    </div>
+    <div class="cd-sem-section">
+      <div class="cd-sem-label">Add to semester</div>
+      <div class="cd-sem-grid">${semBtns}</div>
+    </div>
+  </div>`;
+}
+
+function toggleSem(cid,sid){
+  if(plan[sid].includes(cid)){plan[sid]=plan[sid].filter(x=>x!==cid);}
+  else{Object.keys(plan).forEach(k=>{plan[k]=plan[k].filter(x=>x!==cid)});plan[sid].push(cid);}
+  renderCourseDetail();renderCourseList();updateSidebarStats();
+}
+
+function renderReqCards(){
+  const pl=placed().map(gc).filter(Boolean);
+  document.getElementById('req-cards').innerHTML=REQS.map(req=>{
+    const met=reqMet(req),pct=Math.min(100,Math.round(met/req.need*100)),done=met>=req.need;
+    const sat=pl.filter(c=>c.req===req.id);
+    const avail=COURSES.filter(c=>c.req===req.id&&!sat.find(s=>s.id===c.id)).slice(0,8);
+    const chips=[
+      ...sat.map(c=>`<span class="rbc-chip done" style="background:${req.bg};color:${req.color}"><span style="font-size:9px">✓</span> ${c.code}</span>`),
+      ...avail.map(c=>`<span class="rbc-chip need" style="color:${req.color};border-color:${req.color}">${c.code}</span>`),
+    ].join('');
+    return `<div class="req-big-card">
+      <div class="rbc-header">
+        <div class="rbc-icon" style="background:${req.bg};color:${req.color}">${req.icon}</div>
+        <div class="rbc-info"><div class="rbc-title">${req.label}</div><div class="rbc-sub">${met} of ${req.need} planned${done?' — complete':''}</div></div>
+        <div class="rbc-pct" style="color:${done?req.color:'var(--slate4)'}">${pct}%</div>
+      </div>
+      <div class="rbc-bar"><div class="rbc-bar-fill" style="width:${pct}%;background:${req.color}"></div></div>
+      <div class="rbc-courses">${chips}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderReqSide(){
+  const cr=totCr(),pl=placed().length,done=reqsDone();
+  document.getElementById('req-side').innerHTML=`
+    <div class="req-side-title">Summary</div>
+    <div class="summary-rows">
+      <div class="sum-row"><span class="sum-lbl">Credits planned</span><span class="sum-val">${cr}/128</span></div>
+      <div class="sum-row"><span class="sum-lbl">Courses placed</span><span class="sum-val">${pl}</span></div>
+      <div class="sum-row"><span class="sum-lbl">Reqs complete</span><span class="sum-val">${done}/${REQS.length}</span></div>
+      <div class="sum-row"><span class="sum-lbl">Remaining cr</span><span class="sum-val">${Math.max(0,128-cr)}</span></div>
+    </div>
+    ${128-cr>0
+      ?`<div class="remaining-note">You need <strong>${Math.max(0,128-cr)}</strong> more credits to complete your degree.</div>`
+      :`<div class="remaining-note" style="background:#F0FDF4;border-color:#BBF7D0;color:#166534">🎉 All credits fulfilled!</div>`}`;
+}
+
+function dsBnk(e,id){dragId=id;dragFrom='bank';e.dataTransfer.effectAllowed='move';setTimeout(()=>e.target.classList.add('dragging'),0);document.getElementById('drop-zone').classList.add('show')}
+function dsSem(e,id,sid){dragId=id;dragFrom=sid;e.dataTransfer.effectAllowed='move';setTimeout(()=>e.target.classList.add('dragging'),0);document.getElementById('drop-zone').classList.add('show')}
+function deEnd(e){e.target.classList.remove('dragging');document.getElementById('drop-zone').classList.remove('show','over');document.querySelectorAll('.sem-col').forEach(el=>el.classList.remove('drag-over'))}
+function scOver(e,sid){e.preventDefault();const el=document.getElementById('sc-'+sid);if(el&&!plan[sid].includes(dragId))el.classList.add('drag-over')}
+function scLeave(sid){document.getElementById('sc-'+sid)?.classList.remove('drag-over')}
+function scDrop(e,sid){
+  e.preventDefault();document.getElementById('sc-'+sid)?.classList.remove('drag-over');
+  if(!dragId||plan[sid].includes(dragId))return;
+  if(dragFrom!=='bank')plan[dragFrom]=plan[dragFrom].filter(x=>x!==dragId);
+  plan[sid].push(dragId);dragId=null;dragFrom=null;
+  renderBank();renderPlanArea();updateSidebarStats();
+}
+function dzOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('over')}
+function dzLeave(){document.getElementById('drop-zone').classList.remove('over')}
+function dzDrop(e){
+  e.preventDefault();document.getElementById('drop-zone').classList.remove('over','show');
+  if(!dragId||dragFrom==='bank')return;
+  plan[dragFrom]=plan[dragFrom].filter(x=>x!==dragId);
+  dragId=null;dragFrom=null;renderBank();renderPlanArea();updateSidebarStats();
+}
+function rmCourse(id,sid){plan[sid]=plan[sid].filter(x=>x!==id);renderBank();renderPlanArea();updateSidebarStats();}
+
+loadData();
+</script>
+</body>
+</html>

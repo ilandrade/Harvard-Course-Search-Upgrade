@@ -1,0 +1,77 @@
+[
+  {
+    "tag": "corecs",
+    "definition": "Course content mostly classifiable as Computer Science.",
+    "label": "Core CS"
+  },
+  {
+    "tag": "advancedcs",
+    "definition": "Advanced undergraduate level or above CS, typically CS 1000+ equivalent.",
+    "label": "Advanced CS"
+  },
+  {
+    "tag": "programming1",
+    "definition": "Significant software construction and engineering practice.",
+    "label": "Programming 1"
+  },
+  {
+    "tag": "programming2",
+    "definition": "Advanced significant software construction and engineering practice.",
+    "label": "Programming 2"
+  },
+  {
+    "tag": "formalreasoning",
+    "definition": "Significant formal reasoning about computer science.",
+    "label": "Formal Reasoning"
+  },
+  {
+    "tag": "complimitations",
+    "definition": "Computability and complexity theory; fundamental limits of computation.",
+    "label": "Comp & Limitations"
+  },
+  {
+    "tag": "algorithms",
+    "definition": "Introductory algorithms, algorithmic analysis, and data structures.",
+    "label": "Algorithms"
+  },
+  {
+    "tag": "intermediatealgorithms",
+    "definition": "Algorithms and data structures at greater sophistication.",
+    "label": "Intermediate Algorithms"
+  },
+  {
+    "tag": "systems",
+    "definition": "Computer system development involving software/hardware interfaces, performance, robustness, or security.",
+    "label": "Systems"
+  },
+  {
+    "tag": "computationandtheworld",
+    "definition": "Computational models/systems interacting with aspects of the empirical world.",
+    "label": "Computation & the World"
+  },
+  {
+    "tag": "ai",
+    "definition": "Tools and techniques that model or replicate intelligent behavior.",
+    "label": "AI"
+  },
+  {
+    "tag": "probability",
+    "definition": "Satisfies probability-related requirement.",
+    "label": "Probability"
+  },
+  {
+    "tag": "linearalgebra",
+    "definition": "Satisfies linear algebra-related requirement.",
+    "label": "Linear Algebra"
+  },
+  {
+    "tag": "discretemath",
+    "definition": "Satisfies discrete math-related requirement.",
+    "label": "Discrete Math"
+  },
+  {
+    "tag": "secondary",
+    "definition": "Can count for secondary field requirements where applicable.",
+    "label": "Secondary Field"
+  }
+]
