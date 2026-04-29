@@ -211,7 +211,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
           <div class="cp-title" id="cp-title">Select a requirement</div>
           <div class="cp-meta" id="cp-meta">Choose a sub-requirement from the left panel to browse courses</div>
         </div>
-        <input class="cp-search" id="cp-search" type="text" placeholder="Filter courses…" oninput="renderCourses()"/>
+        <input class="cp-search" id="cp-search" type="text" placeholder="Search all CS courses…" oninput="renderCourses()"/>
       </div>
       <div id="cp-body" class="cp-empty">
         <div class="cp-empty-icon">←</div>
@@ -456,24 +456,40 @@ function selectReq(id) {
 // and u can search of any of those 3 as they will all work
 function renderCourses() {
   const cpBody = document.getElementById('cp-body');
+  const q = document.getElementById('cp-search').value.trim().toLowerCase();
 
-  if (!activeReqId) {
-    cpBody.className = 'cp-empty';
-    cpBody.innerHTML = `<div class="cp-empty-icon">←</div><div class="cp-empty-text">Pick a sub-requirement to see courses</div>`;
-    return;
-  }
-
-  const req  = allReqs().find(r => r.id === activeReqId);
-  const q    = document.getElementById('cp-search').value.toLowerCase();
-
-  let courses = COURSES.filter(c => c[`is_${req.tag}`]);
+  // Global search mode — query overrides requirement filter
   if (q) {
-    courses = courses.filter(c =>
+    const results = COURSES.filter(c =>
       c.course_number.toLowerCase().includes(q) ||
       c.title.toLowerCase().includes(q) ||
       (c.instructor||'').toLowerCase().includes(q)
     );
+    document.getElementById('cp-title').textContent = 'Search results';
+    document.getElementById('cp-meta').textContent =
+      `${results.length} course${results.length !== 1 ? 's' : ''} match "${q}"`;
+    if (results.length === 0) {
+      cpBody.className = 'cp-empty';
+      cpBody.innerHTML = `<div class="cp-empty-icon">🔍</div><div class="cp-empty-text">No courses match "${q}"</div>`;
+      return;
+    }
+    const dummyReq = { id: activeReqId, tag: activeReqId, honorsOnly: false, name: '' };
+    cpBody.className = 'cp-scroll';
+    cpBody.innerHTML = `<div class="courses-grid">${results.map(c => courseCardHTML(c, dummyReq)).join('')}</div>`;
+    return;
   }
+
+  // Requirement mode — no query, show courses for selected requirement
+  if (!activeReqId) {
+    cpBody.className = 'cp-empty';
+    cpBody.innerHTML = `<div class="cp-empty-icon">←</div><div class="cp-empty-text">Pick a sub-requirement to see courses</div>`;
+    document.getElementById('cp-title').textContent = 'Select a requirement';
+    document.getElementById('cp-meta').textContent = 'Choose a sub-requirement from the left panel to browse courses';
+    return;
+  }
+
+  const req = allReqs().find(r => r.id === activeReqId);
+  const courses = COURSES.filter(c => c[`is_${req.tag}`]);
 
   document.getElementById('cp-title').textContent = req.name;
   document.getElementById('cp-meta').textContent =
@@ -481,7 +497,7 @@ function renderCourses() {
 
   if (courses.length === 0) {
     cpBody.className = 'cp-empty';
-    cpBody.innerHTML = `<div class="cp-empty-icon">🔍</div><div class="cp-empty-text">No courses match your filter</div>`;
+    cpBody.innerHTML = `<div class="cp-empty-icon">🔍</div><div class="cp-empty-text">No courses found for this requirement</div>`;
     return;
   }
 
