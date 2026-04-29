@@ -115,9 +115,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .cc-actions{display:flex;align-items:center;gap:6px}
 .add-btn{padding:5px 12px;border-radius:6px;border:none;background:var(--crimson);color:#fff;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:.03em;transition:background .12s;white-space:nowrap}
 .add-btn:hover{background:#8B0D2B}
-.remove-btn{padding:5px 10px;border-radius:6px;border:1px solid #FCA5A5;background:transparent;color:#DC2626;font-size:11px;font-weight:500;cursor:pointer;transition:all .12s;white-space:nowrap}
-.remove-btn:hover{background:#FEF2F2;border-color:#DC2626}
-.in-plan-sem{font-size:10px;color:#166534;font-weight:500}
+.remove-btn{width:20px;height:20px;border-radius:50%;border:none;background:transparent;color:#9CA3AF;font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:all .12s;flex-shrink:0}
+.remove-btn:hover{background:#FEE2E2;color:#DC2626}
 
 /* SEMESTER PICKER (expanded) */
 .cc-picker{border-top:1px solid var(--border);padding:12px 16px;background:var(--surface2)}
@@ -556,7 +555,7 @@ function courseCardHTML(c, req) {
         <span class="cc-code">${c.course_number}</span>
         <div class="cc-badges">
           ${req.honorsOnly ? `<span class="honors-chip tag-chip">HONORS</span>` : ''}
-          ${inPlan ? `<span class="in-plan-badge">IN PLAN</span>` : ''}
+          ${inPlan ? `<button class="remove-btn" onclick="event.stopPropagation();removeCourse('${c.course_number}')" title="Remove from plan">✕</button>` : ''}
         </div>
       </div>
       <div class="cc-title">${c.title}</div>
@@ -567,8 +566,7 @@ function courseCardHTML(c, req) {
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
           <div class="cc-actions">
             ${inPlan
-              ? `<span class="in-plan-sem">${semLabel}</span>
-                 <button class="remove-btn" onclick="removeCourse('${c.course_number}')">Remove</button>`
+              ? ``
               : `<button class="add-btn" onclick="togglePicker('${c.course_number}')">${isExpanded?'Cancel':'+ Add'}</button>`
             }
           </div>
