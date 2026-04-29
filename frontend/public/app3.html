@@ -144,15 +144,18 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .ps-cr{font-family:'SF Mono',Menlo,monospace;font-size:10px;color:var(--ink4)}
 .ps-cr.heavy{color:var(--crimson)}
 .ps-body{padding:6px 8px;min-height:28px}
-.plan-chip{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:5px;margin-bottom:3px;font-size:10px;cursor:pointer;transition:opacity .12s;position:relative}
+.plan-chip{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:5px;margin-bottom:3px;font-size:10px;cursor:grab;transition:opacity .12s;position:relative}
+.plan-chip:active{cursor:grabbing}
 .plan-chip:hover{opacity:.85}
 .plan-chip:hover .chip-rm{opacity:1}
+.plan-chip.dragging{opacity:.35;pointer-events:none}
 .chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .chip-code{font-family:'SF Mono',Menlo,monospace;font-size:9px;font-weight:600;flex-shrink:0}
 .chip-title{font-size:10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chip-rm{position:absolute;right:4px;background:none;border:none;cursor:pointer;font-size:11px;opacity:0;transition:opacity .1s;color:var(--ink3);line-height:1;padding:0}
 .chip-rm:hover{color:#DC2626}
 .ps-empty{font-size:10px;color:var(--ink4);font-style:italic;padding:4px 2px}
+.ps-body.drop-over{background:rgba(220,38,38,.07);outline:2px dashed var(--crimson);outline-offset:-3px;border-radius:4px}
 
 /* PULSE ANIMATION */
 @keyframes pulse-in{0%{opacity:.5;transform:scale(.92)}60%{transform:scale(1.04)}100%{opacity:1;transform:scale(1)}}
@@ -330,6 +333,7 @@ const plan = Object.fromEntries(SEMS.map(s => [s.id, []]));
 // expand state for semester picker
 let expandedCard = null;   // course_number of card showing picker
 let pendingSem = null;     // semId selected but not confirmed
+let dragCid = null;        // courseId being dragged in the plan
 
 // fetches the data from the courses.json on load where each course has
 // a boolean flag like is_programming 1, is_advancedcs etc. These flags
@@ -636,7 +640,10 @@ function renderPlan() {
       const cr = entries.length * 4;
       const crCls = cr > 20 ? 'heavy' : '';
       const chips = entries.map(e => `
-        <div class="plan-chip" data-cid="${e.courseId}" style="background:${e.bg}" onclick="removeCourse('${e.courseId}')">
+        <div class="plan-chip" data-cid="${e.courseId}" draggable="true" style="background:${e.bg}"
+             ondragstart="chipDragStart(event)"
+             ondragend="chipDragEnd(event)"
+             onclick="removeCourse('${e.courseId}')">
           <div class="chip-dot" style="background:${e.color}"></div>
           <span class="chip-code" style="color:${e.color}">${e.courseId}</span>
           <span class="chip-title">${e.title}</span>
@@ -647,12 +654,65 @@ function renderPlan() {
           <span class="ps-name">${term}</span>
           <span class="ps-cr ${crCls}">${cr}cr</span>
         </div>
-        <div class="ps-body">${chips || `<div class="ps-empty">Empty</div>`}</div>
+        <div class="ps-body" data-sem="${sem.id}"
+             ondragover="event.preventDefault()"
+             ondragenter="dropEnter(event)"
+             ondragleave="dropLeave(event)"
+             ondrop="chipDrop(event,'${sem.id}')">
+          ${chips || `<div class="ps-empty">Empty</div>`}
+        </div>
       </div>`;
     });
     html += `</div>`;
   });
   document.getElementById('right-plan').innerHTML = html;
+}
+
+// ── DRAG & DROP (right panel) ─────────────────────────────────────────────
+function chipDragStart(e) {
+  dragCid = e.currentTarget.dataset.cid;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', dragCid);
+  // delay class so ghost image captures the normal look
+  setTimeout(() => e.currentTarget.classList.add('dragging'), 0);
+}
+
+function chipDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  dragCid = null;
+  // clean up any lingering drop highlights
+  document.querySelectorAll('.ps-body.drop-over').forEach(el => el.classList.remove('drop-over'));
+}
+
+function dropEnter(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drop-over');
+}
+
+function dropLeave(e) {
+  // only fire if leaving the ps-body itself, not a child element
+  if (!e.currentTarget.contains(e.relatedTarget)) {
+    e.currentTarget.classList.remove('drop-over');
+  }
+}
+
+function chipDrop(e, targetSemId) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drop-over');
+  const cid = dragCid || e.dataTransfer.getData('text/plain');
+  if (!cid) return;
+  // find and remove from current sem
+  let entry = null;
+  Object.keys(plan).forEach(k => {
+    const idx = plan[k].findIndex(x => x.courseId === cid);
+    if (idx >= 0) { entry = plan[k][idx]; plan[k].splice(idx, 1); }
+  });
+  // add to target sem (avoid duplicates)
+  if (entry && !plan[targetSemId].find(x => x.courseId === cid)) {
+    plan[targetSemId].push(entry);
+  }
+  dragCid = null;
+  renderAll();
 }
 
 // Three numbers at the top bar are the core reqs, advanced cs, and math reqs
