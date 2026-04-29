@@ -97,6 +97,9 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .cc-code{font-family:'SF Mono',Menlo,monospace;font-size:11px;font-weight:600;color:var(--crimson)}
 .cc-badges{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .tag-chip{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.tag-chip-btn{cursor:pointer;transition:filter .12s,transform .1s}
+.tag-chip-btn:hover{filter:brightness(0.88);transform:translateY(-1px)}
+.tag-chip-active{box-shadow:0 0 0 2px currentColor}
 .honors-chip{background:#F5F3FF;color:#5B21B6}
 .in-plan-badge{font-size:9px;font-weight:700;letter-spacing:.05em;background:#DCFCE7;color:#14532D;padding:2px 7px;border-radius:4px;text-transform:uppercase}
 .cc-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:4px}
@@ -501,9 +504,13 @@ function courseCardHTML(c, req) {
   else if (term === 'Spring') { availClass='avail-spring'; availText='SPRING ONLY'; }
   else if (term)              { availClass='avail-both';   availText='BOTH'; }
 
-  const chipTags = allTagKeys.map(t =>
-    `<span class="tag-chip" style="background:${tagBg(t)};color:${tagColor(t)}">${tagLabel(t)}</span>`
-  ).join('');
+  const chipTags = allTagKeys.map(t => {
+    const isActive = activeReqId === t;
+    return `<span class="tag-chip tag-chip-btn${isActive ? ' tag-chip-active' : ''}"
+      style="background:${tagBg(t)};color:${tagColor(t)}${isActive ? `;outline:2px solid ${tagColor(t)};outline-offset:1px` : ''}"
+      onclick="event.stopPropagation();selectReq('${t}')"
+      title="Filter by ${tagLabel(t)}">${tagLabel(t)}</span>`;
+  }).join('');
 
   let pickerHTML = '';
   if (isExpanded && !inPlan) {
