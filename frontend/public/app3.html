@@ -61,18 +61,18 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .lp-section-name{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--ink4);text-transform:uppercase}
 .lp-section-bar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-left:8px}
 .lp-section-fill{height:100%;border-radius:2px;transition:width .4s ease}
-.lp-section-frac{font-size:10px;font-variant-numeric:tabular-nums;color:var(--ink4);white-space:nowrap}
+.lp-section-frac{font-size:10px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink4);white-space:nowrap}
 .req-row{display:flex;align-items:center;gap:10px;padding:8px 16px;cursor:pointer;transition:background .12s;position:relative}
 .req-row:hover{background:var(--surface2)}
 .req-row.active{background:var(--crimson-light)}
 .req-row.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--crimson);border-radius:0 2px 2px 0}
 .rr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .rr-info{flex:1;min-width:0}
-.rr-name{font-size:12px;color:var(--ink2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rr-name{font-size:12px;font-weight:600;color:var(--ink2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rr-name.satisfied{color:var(--ink3);text-decoration:line-through;text-decoration-color:var(--ink4)}
 .honors-badge{font-size:8px;font-weight:700;letter-spacing:.06em;background:#7C3AED;color:#fff;padding:1px 5px;border-radius:3px;text-transform:uppercase;flex-shrink:0}
 .rr-check{color:#16A34A;font-size:13px;flex-shrink:0}
-.rr-count{font-size:10px;color:var(--ink4);white-space:nowrap;flex-shrink:0;font-variant-numeric:tabular-nums}
+.rr-count{font-size:10px;font-weight:600;color:var(--ink4);white-space:nowrap;flex-shrink:0;font-variant-numeric:tabular-nums}
 
 /* ── CENTER PANEL ───────────────────────────────────────────────────── */
 .center-panel{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
@@ -140,16 +140,16 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .py-label{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--ink4);text-transform:uppercase;padding:0 4px;margin-bottom:6px}
 .plan-sem{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:6px}
 .ps-head{padding:6px 10px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.ps-name{font-size:10px;font-weight:600;color:var(--ink2);letter-spacing:.04em}
-.ps-cr{font-family:'SF Mono',Menlo,monospace;font-size:10px;color:var(--ink4)}
+.ps-name{font-size:10px;font-weight:700;color:var(--ink2);letter-spacing:.04em}
+.ps-cr{font-family:'SF Mono',Menlo,monospace;font-size:10px;font-weight:700;color:var(--ink4)}
 .ps-cr.heavy{color:var(--crimson)}
 .ps-body{padding:6px 8px;min-height:28px}
 .plan-chip{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:5px;margin-bottom:3px;font-size:10px;cursor:pointer;transition:opacity .12s;position:relative}
 .plan-chip:hover{opacity:.85}
 .plan-chip:hover .chip-rm{opacity:1}
 .chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.chip-code{font-family:'SF Mono',Menlo,monospace;font-size:9px;font-weight:600;flex-shrink:0}
-.chip-title{font-size:10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip-code{font-family:'SF Mono',Menlo,monospace;font-size:9px;font-weight:700;flex-shrink:0}
+.chip-title{font-size:10px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chip-rm{position:absolute;right:4px;background:none;border:none;cursor:pointer;font-size:11px;opacity:0;transition:opacity .1s;color:var(--ink3);line-height:1;padding:0}
 .chip-rm:hover{color:#DC2626}
 .ps-empty{font-size:10px;color:var(--ink4);font-style:italic;padding:4px 2px}
