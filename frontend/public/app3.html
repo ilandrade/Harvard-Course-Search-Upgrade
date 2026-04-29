@@ -227,7 +227,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 </div>
 
 <script>
-// ── TAG CONFIG ────────────────────────────────────────────────────────────
+// This maps requirement tag ID to its display label and color
+// helper functions like tagcolor, tagbg, in later just look things up here
 const TAG_CFG = {
   programming1:         {label:'PROG 1',   color:'var(--c-prog1)',  bg:'var(--bg-prog1)'},
   programming2:         {label:'PROG 2',   color:'var(--c-prog2)',  bg:'var(--bg-prog2)'},
@@ -244,7 +245,9 @@ const TAG_CFG = {
   probability:          {label:'PROB',     color:'var(--c-prob)',   bg:'var(--bg-prob)'},
 };
 
-// ── TRACK DEFINITIONS ─────────────────────────────────────────────────────
+//this is the curriulum data structure. Where each track has sections, and each section has regs
+// key fields per requirement are id, tag, need, honorOnly. It also has toggle button 
+// in the top bar call that switches the active track and re-renders everything
 const TRACKS = {
   basic: {
     coreTotal: 9,
@@ -314,17 +317,19 @@ const SEMS = [
   {id:'y4s',yr:4,term:'Spring',label:'Y4 Spring'},
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────
+//STATES
 let COURSES = [];
 let track = 'basic';
-let activeReqId = null;
+let activeReqId = null; // which left nav requirement is selected
 // plan: { semId: [{courseId, tagColor, tagLabel}] }
 const plan = Object.fromEntries(SEMS.map(s => [s.id, []]));
 // expand state for semester picker
 let expandedCard = null;   // course_number of card showing picker
 let pendingSem = null;     // semId selected but not confirmed
 
-// ── DATA ──────────────────────────────────────────────────────────────────
+// fetches the data from the courses.json on load where each course has
+// a boolean flag like is_programming 1, is_advancedcs etc. These flags
+// are what powers requirement matching throughout the map
 async function loadData() {
   try {
     const raw = await fetch('/data/courses.json').then(r => {
@@ -358,6 +363,10 @@ function tagLabel(tagId) { return TAG_CFG[tagId]?.label ?? tagId; }
 function activeTrack() { return TRACKS[track]; }
 function allReqs() { return activeTrack().sections.flatMap(s => s.reqs); }
 
+//This is honestly the core logic of my app because it takes the core requirement 
+//ID, gets all courses currently in the plan (placeIds), then countrs how many
+//of them have a corresponding boolean flag set to try, this number is what 
+// is driving the check marks, strikethroughs, and progress conters everywhere
 function reqSatisfied(reqId) {
   const req = allReqs().find(r => r.id === reqId);
   if (!req) return 0;
@@ -377,7 +386,9 @@ function setTrack(t) {
   renderAll();
 }
 
-// ── RENDER ALL ────────────────────────────────────────────────────────────
+//Every user interaction ultimately calls render all since there is no state management 
+//library. This is why the entire left nav, course list, plan, and counters all stay 
+// perfectly in sync
 function renderAll() {
   renderLeftNav();
   renderCourses();
@@ -385,7 +396,11 @@ function renderAll() {
   renderTopCounters();
 }
 
-// ── LEFT NAV ──────────────────────────────────────────────────────────────
+//Works be interating over tracks.sections where for each section,
+//it calculates total met/tootalNeed which is what drives the progress bar 
+//For each requirement row it calls reqsatisfied 
+//clicking any row calls selectReg(id) which sets activeRegID ad triggers 
+//renderALL for that specific requirement and the courses that count for it
 function renderLeftNav() {
   const td = activeTrack();
   let html = '';
@@ -423,7 +438,7 @@ function renderLeftNav() {
   document.getElementById('left-nav').innerHTML = html;
 }
 
-// ── SELECT REQUIREMENT ────────────────────────────────────────────────────
+//Select requirment function based on the left panel
 function selectReq(id) {
   activeReqId = id;
   expandedCard = null;
@@ -432,7 +447,8 @@ function selectReq(id) {
   renderAll();
 }
 
-// ── CENTER COURSES ────────────────────────────────────────────────────────
+//filtering works be course that shows title, instructor, tags and avaibility.
+// and u can search of any of those 3 as they will all work
 function renderCourses() {
   const cpBody = document.getElementById('cp-body');
 
@@ -491,7 +507,7 @@ function courseCardHTML(c, req) {
   let pickerHTML = '';
   if (isExpanded && !inPlan) {
     const semBtns = SEMS.map(s =>
-      `<button class="sem-btn${pendingSem===s.id?' selected':''}" onclick="pickSem('${c.course_number}','${s.id}')">${s.yr===1&&s.term==='Fall'?'Y1':''}<b>${s.yr}</b><br/><span style="font-weight:400;font-size:9px">${s.term}</span></button>`
+      `<button class="sem-btn${pendingSem===s.id?' selected':''}" onclick="pickSem('${c.course_number}','${s.id}')"><b>Y${s.yr}</b><br/><span style="font-weight:400;font-size:9px">${s.term}</span></button>`
     ).join('');
     pickerHTML = `<div class="cc-picker">
       <div class="cc-picker-lbl">Choose a semester</div>
@@ -575,7 +591,8 @@ function removeCourse(courseId) {
   renderAll();
 }
 
-// ── RIGHT PLAN ────────────────────────────────────────────────────────────
+// RIGHT PANEL: where you see four years with two semester. Where the courses in that 
+//semester are colored chips, clicking a chip or x button removes it from plan
 function renderPlan() {
   const placed = placedIds().length;
   const credits = placed * 4;
@@ -609,7 +626,7 @@ function renderPlan() {
   document.getElementById('right-plan').innerHTML = html;
 }
 
-// ── TOP COUNTERS ──────────────────────────────────────────────────────────
+// Three numbers at the top bar are the core reqs, advanced cs, and math reqs
 function renderTopCounters() {
   const td = activeTrack();
   const coreSection = td.sections.find(s => s.id === 'cs-core');
