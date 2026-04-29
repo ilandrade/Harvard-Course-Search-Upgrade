@@ -120,8 +120,9 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .cc-picker-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--ink4);text-transform:uppercase;margin-bottom:8px}
 .sem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px}
 .sem-btn{padding:7px 4px;border-radius:6px;border:1px solid var(--border2);background:var(--surface);font-size:10px;cursor:pointer;color:var(--ink3);text-align:center;line-height:1.3;transition:all .12s;font-weight:500}
-.sem-btn:hover{border-color:var(--crimson);color:var(--crimson);background:var(--crimson-light)}
+.sem-btn:hover:not(:disabled){border-color:var(--crimson);color:var(--crimson);background:var(--crimson-light)}
 .sem-btn.selected{background:var(--crimson);border-color:var(--crimson);color:#fff;font-weight:600}
+.sem-btn:disabled{opacity:0.28;cursor:not-allowed;background:var(--surface2);border-color:var(--border);color:var(--ink4)}
 .confirm-btn{width:100%;padding:8px;border-radius:6px;border:none;background:var(--crimson);color:#fff;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:.04em;transition:background .12s}
 .confirm-btn:hover{background:#8B0D2B}
 .confirm-btn:disabled{background:var(--border2);cursor:default}
@@ -493,12 +494,12 @@ function courseCardHTML(c, req) {
   // tags to show: all non-secondary, non-empty tags the course has
   const allTagKeys = Object.keys(TAG_CFG).filter(t => c[`is_${t}`]);
 
-  // semester availability from meeting_time
-  const mt = (c.meeting_time||'').toLowerCase();
+  // semester availability from term field
+  const term = (c.term || '').trim();
   let availClass = '', availText = '';
-  if (mt.includes('fall') && mt.includes('spring')) { availClass='avail-both';   availText='BOTH'; }
-  else if (mt.includes('fall'))                      { availClass='avail-fall';   availText='FALL'; }
-  else if (mt.includes('spring'))                    { availClass='avail-spring'; availText='SPRING'; }
+  if (term === 'Fall')        { availClass='avail-fall';   availText='FALL ONLY'; }
+  else if (term === 'Spring') { availClass='avail-spring'; availText='SPRING ONLY'; }
+  else if (term)              { availClass='avail-both';   availText='BOTH'; }
 
   const chipTags = allTagKeys.map(t =>
     `<span class="tag-chip" style="background:${tagBg(t)};color:${tagColor(t)}">${tagLabel(t)}</span>`
@@ -506,9 +507,16 @@ function courseCardHTML(c, req) {
 
   let pickerHTML = '';
   if (isExpanded && !inPlan) {
-    const semBtns = SEMS.map(s =>
-      `<button class="sem-btn${pendingSem===s.id?' selected':''}" onclick="pickSem('${c.course_number}','${s.id}')"><b>Y${s.yr}</b><br/><span style="font-weight:400;font-size:9px">${s.term}</span></button>`
-    ).join('');
+    const semBtns = SEMS.map(s => {
+      const unavail = term === 'Fall'   && s.term === 'Spring' ||
+                      term === 'Spring' && s.term === 'Fall';
+      const cls = [
+        'sem-btn',
+        pendingSem === s.id ? 'selected' : '',
+        unavail ? 'unavail' : '',
+      ].filter(Boolean).join(' ');
+      return `<button class="${cls}"${unavail ? ' disabled title="Not offered this semester"' : ''} onclick="pickSem('${c.course_number}','${s.id}')"><b>Y${s.yr}</b><br/><span style="font-weight:400;font-size:9px">${s.term}</span></button>`;
+    }).join('');
     pickerHTML = `<div class="cc-picker">
       <div class="cc-picker-lbl">Choose a semester</div>
       <div class="sem-grid">${semBtns}</div>

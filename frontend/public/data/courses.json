@@ -74,7 +74,8 @@
       "corecs",
       "computationandtheworld",
       "advancedcs"
-    ]
+    ],
+    "term": "Fall"
   },
   {
     "course_number": "AIT Algorithms and Data Structures (Study Abroad)",
@@ -624,7 +625,11 @@
       "computationandtheworld",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Pavlos Protopapas, Natesh Sivasubramonia Pillai",
+    "description": "Data Science 1 is the first half of a one-year introduction to data science. The course focuses on the analysis of messy, real-life data to make predictions using statistical and machine learning methods. Material covered integrates the five key facets of an investigation using data: (1) data collection \u2013 data wrangling and cleaning to obtain a suitable dataset; (2) data management \u2013 accessing data quickly and reliably; (3) exploratory data analysis \u2013 generating hypotheses and building intuition; (4) prediction or statistical learning \u2013 developing and applying models such as linear and logistic regression, k-nearest neighbors, decision trees, and probabilistic approaches based on Bayes' rule; and (5) communication \u2013 summarizing results through visualization, storytelling, and interpretable summaries.This is the first part of a two-course sequence. The curriculum builds throughout the academic year, and students are strongly encouraged to enroll in both the fall and spring courses within the same academic year.",
+    "meeting_time": "MW 1030 AM - 1145 AM | Instructor Permission Required"
   },
   {
     "course_number": "CS1090A / STAT109A / AC209A (formerly CS109A) (2025 and later only)",
@@ -651,7 +656,11 @@
       "programming1",
       "computationandtheworld",
       "secondary"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Pavlos Protopapas, Natesh Sivasubramonia Pillai",
+    "description": "Data Science 1 is the first half of a one-year introduction to data science. The course focuses on the analysis of messy, real-life data to make predictions using statistical and machine learning methods. Material covered integrates the five key facets of an investigation using data: (1) data collection \u2013 data wrangling and cleaning to obtain a suitable dataset; (2) data management \u2013 accessing data quickly and reliably; (3) exploratory data analysis \u2013 generating hypotheses and building intuition; (4) prediction or statistical learning \u2013 developing and applying models such as linear and logistic regression, k-nearest neighbors, decision trees, and probabilistic approaches based on Bayes' rule; and (5) communication \u2013 summarizing results through visualization, storytelling, and interpretable summaries.This is the first part of a two-course sequence. The curriculum builds throughout the academic year, and students are strongly encouraged to enroll in both the fall and spring courses within the same academic year.",
+    "meeting_time": "MW 1030 AM - 1145 AM | Instructor Permission Required"
   },
   {
     "course_number": "CS1090B / STAT109B / AC209B (formerly CS109B)",
@@ -679,7 +688,11 @@
       "computationandtheworld",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Pavlos Protopapas, Natesh Sivasubramonia Pillai",
+    "description": "Data Science 2 is the second half of a one-year introduction to data science. Building upon the material in Data Science 1, the course introduces advanced methods for statistical modeling, representation, and prediction. Topics include multiple deep learning architectures such as CNNs, RNNs, transformers, language models, autoencoders, and generative models as well as basic Bayesian methods, and unsupervised learning. Students are strongly encouraged to enroll in both the fall and spring course within the same academic year. Part two of a two-part series.",
+    "meeting_time": "MW 0945 AM - 1100 AM"
   },
   {
     "course_number": "CS1200 (formerly CS120)",
@@ -1086,7 +1099,11 @@
       "corecs",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "H. Kung",
+    "description": "In this course, students will learn how to utilize tools powered by large language models (LLMs) to address real- world design challenges, including the generation of code and circuits. This field represents the forefront of technology and is rapidly evolving, with new insights and lessons emerging frequently. For example, recent advancements in reasoning models have significantly improved the success rate of producing designs that are not only correct but also efficient. As a result, there is a growing emphasis on the computational efficiency of inference, which enhances deeper reasoning capabilities. Related research includes developing methods for automatically generating testbenches to evaluate and validate designs created by LLMs.A student's work includes the following activities: (1) reviewing articles about various experiments that explore the use of LLM tools in design, (2) creating presentations based on these articles and delivering them in class, and (3) collaborating in teams of 2 or 3 on a design project that utilizes LLM-assisted tools, applying the knowledge gained from the literature.",
+    "meeting_time": "MW 0345 PM - 0500 PM"
   },
   {
     "course_number": "CS1450 (formerly CS145)",
@@ -2221,7 +2238,8 @@
       "corecs",
       "computationandtheworld",
       "advancedcs"
-    ]
+    ],
+    "term": "Fall"
   },
   {
     "course_number": "CS2281R (formerly CS229BR) (All but Fall 2024 only)",
@@ -2274,7 +2292,8 @@
       "computationandtheworld",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Spring"
   },
   {
     "course_number": "CS229BR (Spring 2023 only)",
@@ -2301,7 +2320,8 @@
       "formalreasoning",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Spring"
   },
   {
     "course_number": "CS229R (Fall 2022 only)",
@@ -2328,7 +2348,8 @@
       "formalreasoning",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Fall"
   },
   {
     "course_number": "CS229R (Fall 2023 only)",
@@ -2355,7 +2376,8 @@
       "formalreasoning",
       "advancedcs",
       "secondary"
-    ]
+    ],
+    "term": "Fall"
   },
   {
     "course_number": "CS2340 (formerly CS234R)",
@@ -3506,7 +3528,7 @@
     ],
     "description": "This is CS50, Harvard University's introduction to the intellectual enterprises of computer science and the art of programming, for concentrators and non-concentrators alike, with or without prior programming experience. (More than half of CS50 students have never taken CS before!) This course teaches you how to solve problems, both with and without code, with an emphasis on correctness, design, and style. Topics include computational thinking, abstraction, algorithms, data structures, and computer science more generally. Problem sets inspired by the arts, humanities, social sciences, and sciences. More than teach you how to program in one language, this course teaches you how to program fundamentally and how to teach yourself new languages ultimately. The course starts with a traditional but omnipresent language called C that underlies today's newer languages, via which you'll learn not only about functions, variables, conditionals, loops, and more, but also about how computers themselves work underneath the hood, memory and all. The course then transitions to Python, a higher-level language that you'll understand all the more because of C. Toward term's end, the course introduces SQL, via which you can store data in databases, along with HTML, CSS, and JavaScript, via which you can create web and mobile apps alike. Course culminates in a final project. See https://cs50.harvard.edu/college for advice, FAQs, syllabus, and what's new. Email the course's heads at heads@cs50.harvard.edu with questions.",
     "instructor": "David J. Malan, Kelly Ding",
-    "meeting_time": "W 0600 PM - 0845 PM | Instructor Permission Required",
+    "meeting_time": "T 0900 AM - 1145 AM | Instructor Permission Required",
     "credits": "4",
     "term": "Spring"
   },
@@ -3738,7 +3760,11 @@
     "is_discretemath": false,
     "tags_list": [
       "corecs"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Stephen Chong, Adam Hesterberg, Eddie Kohler",
+    "description": "Supervised individual study of advanced topics in computer science. A student wishing to enroll in Computer Science 91r must be accepted by a faculty member who will supervise the course work. Additional information and a form are available via https://harvardcs.info/forms/#cs-91r-form. The form must be filled out and signed by the student and faculty supervisor. Students writing theses may enroll in this course while conducting thesis research and writing.",
+    "meeting_time": "No meeting time listed | Instructor Permission Required"
   },
   {
     "course_number": "CS96",
@@ -3971,7 +3997,11 @@
       "corecs",
       "formalreasoning",
       "discretemath"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Seraphina Lee",
+    "description": "This course is an introduction to abstract mathematical thought and proof techniques, via topics that such as set theory, group theory, real analysis and possibly geometry.",
+    "meeting_time": "MW 1200 PM - 0115 PM"
   },
   {
     "course_number": "MATH152",
@@ -4021,7 +4051,11 @@
     "is_discretemath": false,
     "tags_list": [
       "probability"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Ashvin Swaminathan",
+    "description": "An introduction to probability theory. Discrete and continuous random variables; distribution and density functions for one and two random variables; conditional probability. Generating functions, weak and strong laws of large numbers, and the central limit theorem. Geometrical probability, random walks, and Markov processes. A previous mathematics course at the level of Mathematics 19ab, 21ab, or a higher number. For students from 19ab or 21ab, previous or concurrent enrollment in Math 101 or 102 or 112 may be helpful. Freshmen who did well in Math 22a, 23a, 25a or 55a fall term are also welcome to take the course.",
+    "meeting_time": "TR 0130 PM - 0245 PM"
   },
   {
     "course_number": "MATH1A",
@@ -4043,7 +4077,11 @@
     "is_probability": false,
     "is_linearalgebra": false,
     "is_discretemath": false,
-    "tags_list": []
+    "tags_list": [],
+    "term": "Spring",
+    "instructor": "Hannah Constantin",
+    "description": "The development of calculus by Newton and Leibniz ranks among the greatest achievements of the past millennium. This course will help you see why by introducing: how differential calculus treats rates of change; how integral calculus treats accumulation; and how the fundamental theorem of calculus links the two. These ideas will be applied to problems from many other disciplines.",
+    "meeting_time": "MWF 0900 AM - 1015 AM"
   },
   {
     "course_number": "MATH1B",
@@ -4065,7 +4103,11 @@
     "is_probability": false,
     "is_linearalgebra": false,
     "is_discretemath": false,
-    "tags_list": []
+    "tags_list": [],
+    "term": "Spring",
+    "instructor": "Janet Chen",
+    "description": "Math 1b is a continuation of single-variable calculus that deepens your fluency in the language of modern mathematics\u2014the language in which ideas across the sciences and engineering are expressed and understood. Focusing on integration, infinite series, and differential equations, the course emphasizes modeling real-world phenomena and understanding change in the physical, life, and social sciences.A central theme is successive approximation: finding approximate solutions when exact ones are difficult or impossible, improving those approximations, and understanding and controlling error.By the end of the course, you will have both a strong conceptual grasp of these ideas and the practical skills to apply them in a wide range of scientific and quantitative contexts. Math 1b is taught in small sections throughout the day on a Monday/Wednesday/Friday schedule (9:00-10:15 am, 10:30-11:45 am, 12-1:15 pm, 1:30-2:45 pm, and 3:00-4:15 pm with sufficient enrollment). For information about how to register for this course and to rank your time preferences, please see the Canvas site. Exams for this course will ocur throughout the semester on Thursdays in the block from 6:00 - 9:00 pm. Consult Canvas for more details on the exact Thursdays. The course will have a mandatory information meeting on the morning of the first day of the semester. Information will be available via Canvas.Midterms will be scheduled on various Thursdays during the block 6:00 PM - 9:00 PM. You will sign up for a \"Quiz Section\" to block this time on your schedule.If there is an unavoidable academic conflict, please email Sarah Chin explaining your conflict and why it is unavoidable. She will arrange an alternative time for you. The first time you enroll in any introductory math course (Math Ma through Math 22a), you are required to take a Math Verification Exam. Your results may determine which introductory course(s) you are eligible to take. For more information please go to this website: https://canvas.harvard.edu/courses/168499. Mathematics 1a or an equivlent background is required for success in Math 1b.",
+    "meeting_time": "No meeting time listed"
   },
   {
     "course_number": "MATH21A",
@@ -4087,7 +4129,11 @@
     "is_probability": false,
     "is_linearalgebra": false,
     "is_discretemath": false,
-    "tags_list": []
+    "tags_list": [],
+    "term": "Fall",
+    "instructor": "Amadeus Martin",
+    "description": "To see how calculus applies in practical situations described by more than one variable, we study integration over curves, surfaces, and solid regions using different coordinate systems; parameterization of curves and surfaces; vectors, lines, and planes; partial derivatives and the gradient; constrained and unconstrained optimization; divergence and curl of vector fields; and the Green's, Stokes's, and Divergence Theorems.There will be required workshops Tuesdays.",
+    "meeting_time": "MWF 0300 PM - 0415 PM"
   },
   {
     "course_number": "MATH21B",
@@ -4111,7 +4157,11 @@
     "is_discretemath": false,
     "tags_list": [
       "linearalgebra"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Roderic Guigo Corominas",
+    "description": "Linear algebra is one of the most widely used areas of mathematics; it has applications in fields as varied as computer science, economics, engineering, epidemiology, ecology, physics, psychology, archaeology and statistics.In linear algebra, we study linear transformations, an important group of functions that play a role in the various applications mentioned above.We'll start from a very concrete perspective, that of solving linear systems, but we'll quickly see that we can also adopt a more geometric perspective, which is often useful. Linear transformations enable us to deal with higher-dimensional phenomena as well as vast amounts of data.As we progress through the course, the level of abstraction will increase. This is key, because it allows us to generalize our knowledge to broader and broader contexts.We'll see how linear algebra can be applied to dynamical systems and differential equations, which model processes throughout the natural and social sciences, and to Fourier series, which are used in engineering and the sciences to analyze waves, signals, and other periodic phenomena.",
+    "meeting_time": "No meeting time listed"
   },
   {
     "course_number": "MATH22A",
@@ -4135,7 +4185,11 @@
     "is_discretemath": false,
     "tags_list": [
       "linearalgebra"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Philip Wood",
+    "description": "Mathematics 22 covers multivariable calculus and linear algebra for students interested in mathematical sciences. It covers the same topics as Mathematics 21, but does so with more rigor. Students are taught techniques of proof and mathematical reasoning. The workload and content is comparable with the Mathematics 21 sequence. But unlike the latter, the linear algebra and calculus are more interlinked. The content of Math 22a is mostly aligned with Math 21b (linear algebra), and the content of Math 22b is mostly aligned with Math 21a (multivariable calculus).",
+    "meeting_time": "MWF 1200 PM - 0115 PM"
   },
   {
     "course_number": "MATH23A",
@@ -4231,7 +4285,11 @@
     "is_discretemath": false,
     "tags_list": [
       "linearalgebra"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Seraphina Lee",
+    "description": "A rigorous treatment of linear algebra. Topics include: Construction of number systems; fields, vector spaces and linear transformations; eigenvalues and eigenvectors, determinants and inner products. Metric spaces, compactness and connectedness.",
+    "meeting_time": "MWF 0130 PM - 0245 PM"
   },
   {
     "course_number": "MATH25B",
@@ -4253,7 +4311,11 @@
     "is_probability": false,
     "is_linearalgebra": false,
     "is_discretemath": false,
-    "tags_list": []
+    "tags_list": [],
+    "term": "Spring",
+    "instructor": "A rigorous treatment of basic analysis. Topics include: convergence, continuity, differentiation, the Riemann",
+    "description": "integral, uniform convergence, the Stone-Weierstrass theorem, Fourier series, differentiation in several variables. Additional topics, including the classical results of vector calculus in two and three dimensions, as time allows.",
+    "meeting_time": "MWF 0130 PM - 0245 PM"
   },
   {
     "course_number": "MATH55A",
@@ -4277,7 +4339,11 @@
     "is_discretemath": false,
     "tags_list": [
       "linearalgebra"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Joseph D. Harris",
+    "description": "A rigorous introduction to abstract algebra, including group theory and linear algebra. This course covers the equivalent of Mathematics 25a and Mathematics 122, and prepares students for Mathematics 123 and other advanced courses in number theory and algebra. (A course in analysis such as Mathematics 25b or 55b is recommended for Spring semester.)",
+    "meeting_time": "MWF 1030 AM - 1145 AM | Instructor Permission Required"
   },
   {
     "course_number": "MATH55B",
@@ -4299,7 +4365,11 @@
     "is_probability": false,
     "is_linearalgebra": false,
     "is_discretemath": false,
-    "tags_list": []
+    "tags_list": [],
+    "term": "Spring",
+    "instructor": "Joseph D. Harris",
+    "description": "A rigorous introduction to real and complex analysis. This course covers the equivalent of Mathematics 25b and Mathematics 113, and prepares students for Mathematics 114 and other advanced courses in analysis.",
+    "meeting_time": "MWF 1030 AM - 1145 AM | Instructor Permission Required"
   },
   {
     "course_number": "MATHMA",
@@ -4443,7 +4513,8 @@
     "is_discretemath": false,
     "tags_list": [
       "probability"
-    ]
+    ],
+    "term": "Spring"
   },
   {
     "course_number": "MIT 6.3900 / MIT 6.036 (Fall only, 2025 and later only)",
@@ -4470,7 +4541,8 @@
       "computationandtheworld",
       "ai",
       "advancedcs"
-    ]
+    ],
+    "term": "Fall"
   },
   {
     "course_number": "MIT 6.4120 / MIT 6.804 / MIT 9.66",
@@ -4939,7 +5011,11 @@
     "is_discretemath": false,
     "tags_list": [
       "corecs"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "SueYeon Chung",
+    "description": "This course provides a foundational overview of the fundamental ideas in computational neuroscience and the study of biological intelligence. At the same time, the course connects the study of brains to the rapid development of ideas in artificial intelligence. Topics covered include the biophysics of computation, Hopfield networks and attractor dynamics, neural networks, machine learning, Bayesian models, theory of learning, deep convolutional and recurrent architectures, generative models, neural coding, control and dynamics of neural activity, and applications to brain\u2013machine interfaces and connectomics. This course is primarily intended for graduate students and advanced undergraduates. Required: Prior coding experience (Python or equivalent) Recommended: One college-level calculus course; prior exposure to neuroscience, machine learning, or statistical/physical modeling",
+    "meeting_time": "R 0300 PM - 0500 PM | Instructor Permission Required"
   },
   {
     "course_number": "Neuro1401",
@@ -4963,7 +5039,11 @@
     "is_discretemath": false,
     "tags_list": [
       "corecs"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Samuel Gershman",
+    "description": "\"What I cannot create, I do not understand.\" This course applies Richard Feynman's dictum to the brain, by teaching students how to simulate brain function with computer programs. Special emphasis will be placed on how neurobiological mechanisms give rise to cognitive processes like learning, memory, attention, decision- making, and object perception. Students will learn how to understand experimental data through the lens of computational models, and ultimately how to build their own models.",
+    "meeting_time": "MW 1200 PM - 0115 PM | Instructor Permission Required"
   },
   {
     "course_number": "Oxford Automata, Logic, and Games (Study Abroad)",
@@ -5115,7 +5195,11 @@
       "corecs",
       "formalreasoning",
       "advancedcs"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Mikhail Lukin",
+    "description": "Introduction to quantum information science and quantum computation. Emphasis on fundamental concepts including qubits and quantum operations, the nature of entanglement and its manipulation, quantum error correction, and various implementation models. Topics include: basics of quantum information, different models of quantum computing, fundamental quantum algorithms, quantum error correction, and fault tolerance; as well as experimental implementations. Recent developments in the field will be discussed. Preparation: One semester of quantum mechanics [QSE200, PHY143a, or PHY251A], or MATH 21b (or equivalent) and permission of the instructor.",
+    "meeting_time": "No meeting time listed"
   },
   {
     "course_number": "STAT110 / STAT S-110",
@@ -5139,7 +5223,11 @@
     "is_discretemath": false,
     "tags_list": [
       "probability"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Joseph Blitzstein",
+    "description": "A comprehensive introduction to probability. Basics: sample spaces and events, conditional probability, and Bayes' Theorem. Univariate distributions: density functions, expectation and variance, Normal, t, Binomial, Negative Binomial, Poisson, Beta, and Gamma distributions. Multivariate distributions: joint and conditional distributions, independence, transformations, and Multivariate Normal. Limit laws: law of large numbers, central limit theorem. Markov chains: transition probabilities, stationary distributions, convergence. Math 1b or equivalent or above",
+    "meeting_time": "TR 0130 PM - 0245 PM"
   },
   {
     "course_number": "STAT111",
@@ -5163,7 +5251,11 @@
     "is_discretemath": false,
     "tags_list": [
       "probability"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Joseph Blitzstein, Neil Shephard",
+    "description": "Introduction to the principles and methods of statistical inference, as a framework for achieving the three main goals of statistics: describing data and a phenomenon of interest, predicting one variable using another variable, and drawing causal conclusions about the effect of one variable on another. Frequentist and Bayesian perspectives on model building, learning from data, and making decisions under uncertainty. A three-pronged approach is emphasized, combining theory, simulation, and data.",
+    "meeting_time": "TR 0130 PM - 0245 PM"
   },
   {
     "course_number": "STAT195",
@@ -5188,7 +5280,11 @@
     "tags_list": [
       "corecs",
       "computationandtheworld"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "",
+    "description": "This course will dive into the statistical properties of various machine learning methods that arise in supervised problems. The goal of the course is to introduce and prepare students for theoretical and methodological research in statistical machine learning. Topics we will discuss include nearest neighbors, no free lunch theorems, curse of dimensionality, structured learning, subset selection, shrinkage methods, principal components regression, double descent, implicit regularization and interpolation, optimism, effective number of parameters, cross validation, ensembling, transfer learning, multimodal learning, predictive inference, algorithmic fairness, causal inference using machine learning. In addition to problem sets but instead of exams, students will work in groups to synthesize and give short presentations on recent machine learning papers. Building upon these presentations, students will conduct individual course projects, based on which they will submit a final report and give either a presentation/poster presentation at the end of the semester.",
+    "meeting_time": ""
   },
   {
     "course_number": "STAT210",
@@ -5212,7 +5308,11 @@
     "is_discretemath": false,
     "tags_list": [
       "probability"
-    ]
+    ],
+    "term": "Fall",
+    "instructor": "Joseph Blitzstein",
+    "description": "Random variables, measure theory, reasoning by representation. Families of distributions: Multivariate Normal, conjugate, marginals, mixtures. Conditional distributions and expectation. Convergence, laws of large numbers, central limit theorems, and martingales. Probability at the level of Stat 110, multivariable calculus, and linear algebra are required; real analysis at the level of Math 112 is recommended.",
+    "meeting_time": "TR 1030 AM - 1145 AM"
   },
   {
     "course_number": "STAT220",
@@ -5236,6 +5336,10 @@
     "is_discretemath": false,
     "tags_list": [
       "probability"
-    ]
+    ],
+    "term": "Spring",
+    "instructor": "Joseph Blitzstein",
+    "description": "Bayesian theory, methods, and applications. Bayesian regression models, exponential family models, mixture models, and hierarchical models. Decision analysis and frequentist properties. Model checking and model comparison.",
+    "meeting_time": "TR 1030 AM - 1145 AM"
   }
 ]
